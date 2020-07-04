@@ -5,8 +5,8 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string nonceStr = GetNonceString(32);
-        string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
-        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim();
+        string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
