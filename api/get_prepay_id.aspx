@@ -73,7 +73,8 @@
 
         string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
 
-        Response.Write(xmlD.InnerXml.Trim() + "\r\n" + prepayXml.Trim());
+        Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") 
+            + "<br/>" + prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
 
     }
 
