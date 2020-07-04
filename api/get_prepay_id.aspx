@@ -5,8 +5,8 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string nonceStr = GetNonceString(32);
-        string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
-        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
+        string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
+        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim();
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
@@ -51,6 +51,13 @@
         n.InnerText = "JSAPI";
         rootXmlNode.AppendChild(n);
 
+        n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
+        string timeStamp = Util.GetTimeStamp();
+        
+        n.InnerText = timeStamp;
+        string out_trade_no = n.InnerText.Trim();
+        rootXmlNode.AppendChild(n);
+
         n = xmlD.CreateNode(XmlNodeType.Element, "body", "");
         n.InnerText = "test";
         rootXmlNode.AppendChild(n);
@@ -60,12 +67,12 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
-        n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "0.01");
+        n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "1");
         rootXmlNode.AppendChild(n);
         
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
-        s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
-        //s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
+        s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
 
         n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
         n.InnerText = s.Trim();
