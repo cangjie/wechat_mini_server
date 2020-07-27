@@ -22,6 +22,11 @@
             StreamReader sr = new StreamReader(s);
             string xmlContent = sr.ReadToEnd();
             sr.Close();
+            XmlDocument xmlD = new XmlDocument();
+            xmlD.LoadXml(xmlContent);
+            
+            ReceivedMessage receiveMessage = new ReceivedMessage(xmlD);
+            ReceivedMessage.SaveReceivedMessage(receiveMessage);
             
             
         }
