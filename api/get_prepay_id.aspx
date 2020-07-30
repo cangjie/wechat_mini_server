@@ -14,7 +14,6 @@
         XmlNode n = xmlD.CreateNode(XmlNodeType.Element, "appid", "");
         n.InnerText = appId.Trim();
         rootXmlNode.AppendChild(n);
-
         n = xmlD.CreateNode(XmlNodeType.Element, "mch_id", "");
         n.InnerText = mch_id.Trim();
         rootXmlNode.AppendChild(n);
