@@ -8,7 +8,7 @@
         string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
         string sessionKeyJson = Util.GetWebContent("https://api.weixin.qq.com/sns/jscode2session?appid="
             + appId.Trim() + "&secret=" + appSecret.Trim() + "&js_code=" + code.Trim() + "&grant_type=authorization_code");
-        string newJsonStr = sessionKeyJson.Substring(0, sessionKeyJson.Length - 2);
+        string newJsonStr = sessionKeyJson.Substring(0, sessionKeyJson.Length - 1);
         newJsonStr = newJsonStr + ", \"role\": \"staff\"}";
         Response.Write(newJsonStr.Trim());
     }
