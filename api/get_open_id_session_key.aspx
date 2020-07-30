@@ -10,6 +10,6 @@
             + appId.Trim() + "&secret=" + appSecret.Trim() + "&js_code=" + code.Trim() + "&grant_type=authorization_code");
         string newJsonStr = sessionKeyJson.Substring(0, sessionKeyJson.Length - 2);
         newJsonStr = newJsonStr + ", \"role\": \"staff\"}";
-        Response.Write(sessionKeyJson.Trim());
+        Response.Write(newJsonStr.Trim());
     }
 </script>
