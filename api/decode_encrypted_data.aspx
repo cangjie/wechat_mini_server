@@ -9,6 +9,7 @@
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
         string iv = Util.GetSafeRequestValue(Request, "iv", "");
         string encData = Util.GetSafeRequestValue(Request, "encdata", "");
-        Response.Write(Util.AES_decrypt(encData, sessionKey, iv));
+        Response.Write("{\"encdata\": \"" + encData.Trim() + "\", \"sessionkey\": \"" + sessionKey.Trim() 
+            + "\", \"iv\": \"" + iv.Trim() + "\" }");
     }
 </script>
