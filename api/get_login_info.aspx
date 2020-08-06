@@ -5,11 +5,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string code = Util.GetSafeRequestValue(Request, "code", "071EXqlD0msA9h2Ws2kD0kLzlD0EXql1");
-        string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
-        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
-        string sessionKeyJson = Util.GetWebContent("https://api.weixin.qq.com/sns/jscode2session?appid="
-            + appId.Trim() + "&secret=" + appSecret.Trim() + "&js_code=" + code.Trim() + "&grant_type=authorization_code");
-        Response.Write(sessionKeyJson);
+        string code = Util.GetSafeRequestValue(Request, "code", "041ZaTll2bs7p54Ruaml2Id2SC3ZaTlI");
+        string sessionKey = MiniUsers.UserLogin(code);
+        Response.Write("{ \"session_key\": \"" + sessionKey.Trim() + "\", \"role\": \"staff\" }");
     }
 </script>

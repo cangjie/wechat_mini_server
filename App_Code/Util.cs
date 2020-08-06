@@ -25,9 +25,14 @@ public class Util
 		//
 	}
 
+    public static string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+
+    public static string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
+
     protected static string token = "";
 
     protected static DateTime tokenTime = DateTime.MinValue;
+
     public static string conStr = System.Configuration.ConfigurationSettings.AppSettings["constr"].Trim();
 
     public static string domainName = System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim();
