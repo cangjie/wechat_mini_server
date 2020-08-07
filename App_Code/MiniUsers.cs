@@ -16,6 +16,17 @@ public class MiniUsers
         //
     }
 
+    public static string CheckSessionKey(string sessionKey)
+    {
+        string openId = "";
+        DataTable dt = DBHelper.GetDataTable(" select * from mini_session where session_key = '" + sessionKey.Trim() + "' order by create_date desc ");
+        if (dt.Rows.Count == 1)
+        {
+            openId = dt.Rows[0]["open_id"].ToString().Trim();
+        }
+        dt.Dispose();
+        return openId.Trim();
+    }
     public static string UserLogin(string code)
     {
         string sessionKeyJson = Util.GetWebContent("https://api.weixin.qq.com/sns/jscode2session?appid="
