@@ -45,6 +45,7 @@
                 { "file_path_name", "varchar", fullFileName.Trim() } });
             filesJson = filesJson + ((i != 0) ? "," : "") + "\"" + fullFileName.Trim() + "\"";
         }
-        Response.Write("{\"status\": 0, \"files\": [" + filesJson + "]}");
+        //Response.Write("{\"status\": 0, \"files\": [" + filesJson + "]}");
+        Response.Write("{\"status\": 0}");
     }
 </script>
