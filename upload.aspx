@@ -22,7 +22,7 @@
         }
         string dateStr = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0')
             + DateTime.Now.Day.ToString().PadLeft(2, '0');
-        if (Directory.Exists(Server.MapPath("/upload/" + dateStr)))
+        if (!Directory.Exists(Server.MapPath("/upload/" + dateStr)))
         {
             Directory.CreateDirectory(Server.MapPath("/upload/" + dateStr));
         }
