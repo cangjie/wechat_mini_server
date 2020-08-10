@@ -16,6 +16,19 @@ public class MiniUsers
         //
     }
 
+    public MiniUsers(string openId)
+    { 
+    
+    }
+
+    public string role
+    {
+        get 
+        {
+            return "staff";
+        }
+    }
+
     public static string CheckSessionKey(string sessionKey)
     {
         string openId = "";
