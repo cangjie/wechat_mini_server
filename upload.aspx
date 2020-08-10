@@ -42,9 +42,9 @@
             }
             DBHelper.InsertData("mini_upload", new string[,] { { "owner", "varchar", openId.Trim() },
                 { "file_path_name", "varchar", fullFileName.Trim() } });
-            filesJson = filesJson + ((i != 0) ? "," : "") + "\"" + fullFileName.Trim() + "\"";
+            filesJson = filesJson + ((i != 0) ? "," : "") + fullFileName.Trim();
         }
         //Response.Write("{\"status\": 0, \"files\": [" + filesJson + "]}");
-        Response.Write("{\"status\": 0}");
+        Response.Write(filesJson.Trim());
     }
 </script>
