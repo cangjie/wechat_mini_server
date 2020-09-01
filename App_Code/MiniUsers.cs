@@ -86,20 +86,23 @@ public class MiniUsers
                     DBHelper.UpdateData("mini_users", new string[,] { { "union_id", "varchar", unionId.Trim() } },
                         new string[,] { { "open_id", "varchar", openId.Trim()} }, Util.conStr.Trim());
                     //DBHelper.InsertData("")
-                    DataTable dtUnionIdOpenId = DBHelper.GetDataTable(" select * from unionids where union_id = '" + unionId.Trim()
-                        + "' and open_id = '" + openId.Trim() + "' ");
-                    if (dtUnionIdOpenId.Rows.Count == 0)
-                    {
-                        DBHelper.InsertData("unionids", new string[,] { {"union_id", "varchar", unionId.Trim() },
-                            {"open_id", "varchar", openId.Trim() }, {"source", "varchar", "snowmeet_mini" } });
-
-                    }
-                    dtUnionIdOpenId.Dispose();
+                    
                 }
                 
             }
             dt.Dispose();
+            if (!unionId.Trim().Equals("") && !openId.Trim().Equals(""))
+            {
+                DataTable dtUnionIdOpenId = DBHelper.GetDataTable(" select * from unionids where union_id = '" + unionId.Trim()
+                            + "' and open_id = '" + openId.Trim() + "' ");
+                if (dtUnionIdOpenId.Rows.Count == 0)
+                {
+                    DBHelper.InsertData("unionids", new string[,] { {"union_id", "varchar", unionId.Trim() },
+                            {"open_id", "varchar", openId.Trim() }, {"source", "varchar", "snowmeet_mini" } });
 
+                }
+                dtUnionIdOpenId.Dispose();
+            }
             dt = DBHelper.GetDataTable(" select * from mini_session where session_key = '" + sessionKey.Trim()
                 + "' and open_id = '" + openId.Trim() + "' ");
             if (dt.Rows.Count == 0)
