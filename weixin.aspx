@@ -16,8 +16,8 @@
     {
         if (valid())
         {
-            Response.Write(Request["echostr"].Trim());
-            Response.End();
+            //Response.Write(Request["echostr"].Trim());
+            //Response.End();
             Stream s = Request.InputStream;
             StreamReader sr = new StreamReader(s);
             string xmlContent = sr.ReadToEnd();
