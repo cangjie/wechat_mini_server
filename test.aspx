@@ -1,12 +1,16 @@
 ﻿<%@ Page Language="C#" %>
-
+<%@ Import Namespace="System.Data" %>
 <!DOCTYPE html>
 
 <script runat="server">
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        DataTable dt = DBHelper.GetDataTable(" select card_no from covid19_service ");
+        foreach (DataRow dr in dt.Rows)
+        {
+            EquipMaintainTask.CreateTaskFromCovid19Service(dr[0].ToString().Trim());
+        }
     }
 </script>
 
