@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionKey", "1lpO5EzM6DAON8FnXrbA7g==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionKey", "WD0/+sc6blmyX0ZwmzgYDg==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         MiniUsers user = new MiniUsers(openId);
         if (!user.role.Trim().Equals("staff"))

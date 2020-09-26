@@ -28,7 +28,7 @@ public class MiniUsers
         else
         {
 
-            throw new Exception("Not Found!");
+            throw new Exception("Key " + openId.Trim() + " Not Found!");
         }
     }
 
