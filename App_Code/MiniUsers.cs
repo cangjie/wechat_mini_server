@@ -9,6 +9,8 @@ using System.Web;
 /// </summary>
 public class MiniUsers
 {
+    DataRow _fields;
+
     public MiniUsers()
     {
         //
@@ -17,15 +19,31 @@ public class MiniUsers
     }
 
     public MiniUsers(string openId)
-    { 
-    
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from mini_users where open_id = '" + openId.Trim() + "' ");
+        if (dt.Rows.Count > 0)
+        {
+            _fields = dt.Rows[0];
+        }
+        else
+        {
+
+            throw new Exception("Not Found!");
+        }
     }
 
     public string role
     {
         get 
         {
-            return "staff";
+            if (_fields["is_admin"].ToString().Equals("1"))
+            {
+                return "staff";
+            }
+            else
+            {
+                return "customer";
+            }
         }
     }
 
