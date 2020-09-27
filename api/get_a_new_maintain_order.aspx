@@ -13,11 +13,18 @@
             Response.End();
         }
 
-        DataTable dt = DBHelper.GetDataTable(" select top 1 * from maintain_task where service_status = 0 order by create_date ");
+        DataTable dt = DBHelper.GetDataTable(" select top 1 * from maintain_task "
+            + " left join [card] on [card].card_no = maintain_task.card_no "
+            + " left join product on product.[id] = [card].product_id "
+            + " where service_status = 0 order by maintain_task.create_date ");
         if (dt.Rows.Count == 1)
         {
             EquipMaintainTask task = new EquipMaintainTask();
             task._fields = dt.Rows[0];
+            DateTime createDate = DateTime.Parse(dt.Rows[0]["create_date"].ToString());
+            dt.Columns.Remove("create_date");
+            dt.Columns.Add("create_date", Type.GetType("System.String"));
+            dt.Rows[0]["create_date"] = createDate.ToString("yyyy-MM-dd HH:mm");
             task.GetUserFilledInfo();
             string jsonTaskInfo = Util.ConvertDataFieldsToJson(task._fields);
             string userFilledInfo = Util.ConvertDataFieldsToJson(task.userFilledEquipmentInfo._fields);
