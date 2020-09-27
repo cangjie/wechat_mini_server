@@ -56,7 +56,7 @@ public class EquipMaintainTask
         {
             default:
                 DataTable dtCovid = DBHelper.GetDataTable(" select * from covid19_service where task_id = " 
-                    + _fields["id"].ToString().Trim() + "' ");
+                    + _fields["id"].ToString().Trim());
                 if (dtCovid.Rows.Count > 0)
                 {
                     userFilledEquipmentInfo._fields = dtCovid.Rows[0];
