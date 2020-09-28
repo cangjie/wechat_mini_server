@@ -34,7 +34,7 @@
         });
         if (i == 1)
         {
-            DBHelper.UpdateData("maintain_task", new string[,] { { "service_status", "int", "0" } },
+            DBHelper.UpdateData("maintain_task", new string[,] { { "service_status", "int", "1" } },
                 new string[,] { { "id", "int", id.ToString() } }, Util.conStr);
             string resultJson = Util.GetWebContent(updateApiUrl + "?sessionkey=" + Server.UrlEncode(sessionKey.Trim()) + "&table=maintain_task", "POST", postJson, "");
             Response.Write(resultJson);
