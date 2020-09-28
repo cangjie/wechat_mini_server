@@ -13,7 +13,7 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        string tableName = Util.GetSafeRequestValue(Request, "table", "skis_maintain_task");
+        string tableName = Util.GetSafeRequestValue(Request, "table", "");
         StreamReader sr = new StreamReader(Request.InputStream);
         string postJson = sr.ReadToEnd();
         sr.Close();
