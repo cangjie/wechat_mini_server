@@ -7,7 +7,7 @@
         string updateApiUrl = Request.Url.Scheme.Trim() + "://" + Request.Url.Authority.Trim() + "/api/update_table.aspx";
 
 
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "TRFKhEHro2Buwv7lX+C2mw==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         int id = 0;
         MiniUsers user = new MiniUsers(openId);
