@@ -14,7 +14,7 @@
             Response.End();
         }
 
-        string wayBill = Util.GetSafeRequestValue(Request, "waybill", "SF1190439112999");
+        string wayBill = Util.GetSafeRequestValue(Request, "waybillno", "SF1190439112999");
         DataTable dt = DBHelper.GetDataTable(" select * from maintain_task left join covid19_service on task_id = maintain_task.id "
             + " where covid19_service.waybill_no = '" + wayBill.Trim() + "' ");
         string itemJson = "";
