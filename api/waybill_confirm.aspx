@@ -15,22 +15,27 @@
         string waybillNo = Util.GetSafeRequestValue(Request, "waybillno", "").Trim();
         int waybillStatus = int.Parse(Util.GetSafeRequestValue(Request, "state", "1").Trim());
         string strOrderIds = Util.GetSafeRequestValue(Request, "orderids", "").Trim();
+        string memo = Util.GetSafeRequestValue(Request, "memo", "");
         int i = DBHelper.UpdateData("waybill_log", new string[,] { { "valid", "int", waybillStatus.ToString() } },
-            new string[,] { { "waybill_no", "varchar", waybillNo.Trim() }, 
+            new string[,] { { "waybill_no", "varchar", waybillNo.Trim() },
             {"oper", "varchar", openId.Trim() } }, Util.conStr.Trim());
         if (i == 0)
         {
             DBHelper.InsertData("waybill_log", new string[,] { {"waybill_no", "varchar", waybillNo.Trim() },
-                {"valid", "int", waybillStatus.ToString().Trim() }, {"oper", "varchar", openId.Trim() } });
+                {"valid", "int", waybillStatus.ToString().Trim() }, {"oper", "varchar", openId.Trim() },
+                {"memo", "varchar",  memo.Trim()} });
         }
-        string sql = "update maintain_task set waybill_no = '" + waybillNo.Trim() + "' where [id] in (" + strOrderIds.Trim() + ")";
-        SqlConnection conn = new SqlConnection(Util.conStr);
-        SqlCommand cmd = new SqlCommand(sql, conn);
-        conn.Open();
-        cmd.ExecuteNonQuery();
-        conn.Close();
-        cmd.Dispose();
-        conn.Dispose();
+        if (waybillStatus == 1)
+        {
+            string sql = "update maintain_task set waybill_no = '" + waybillNo.Trim() + "' where [id] in (" + strOrderIds.Trim() + ")";
+            SqlConnection conn = new SqlConnection(Util.conStr);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            cmd.Dispose();
+            conn.Dispose();
+        }
         Response.Write("{\"status\": 0}");
     }
 </script>
