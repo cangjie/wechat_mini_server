@@ -6,7 +6,7 @@
     {
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
-        int id = 0;
+        //int id = 0;
         MiniUsers user = new MiniUsers(openId);
         if (!user.role.Trim().Equals("staff"))
         {
