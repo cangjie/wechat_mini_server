@@ -120,9 +120,9 @@ public class EquipMaintainTask
                     {"need_photo", "int", drTemplateDetail["need_photo"].ToString() }
                 });
             }
-            catch
-            { 
-            
+            catch(Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine(err.ToString());
             }
             i++;
         }

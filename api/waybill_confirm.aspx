@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<<%@ Import Namespace="System.Data.SqlClient" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -12,9 +12,9 @@
             Response.End();
         }
 
-        string waybillNo = Util.GetSafeRequestValue(Request, "waybillno", "").Trim();
+        string waybillNo = Util.GetSafeRequestValue(Request, "waybillno", "SF1190439112999").Trim();
         int waybillStatus = int.Parse(Util.GetSafeRequestValue(Request, "state", "1").Trim());
-        string strOrderIds = Util.GetSafeRequestValue(Request, "orderids", "").Trim();
+        string strOrderIds = Util.GetSafeRequestValue(Request, "orderids", "108,109,110").Trim();
         string memo = Util.GetSafeRequestValue(Request, "memo", "");
         int i = DBHelper.UpdateData("waybill_log", new string[,] { { "valid", "int", waybillStatus.ToString() } },
             new string[,] { { "waybill_no", "varchar", waybillNo.Trim() },
@@ -35,22 +35,23 @@
             conn.Close();
             cmd.Dispose();
             conn.Dispose();
-        }
-        foreach (string strOrderId in strOrderIds.Split(','))
-        {
-            try
+            foreach (string strOrderId in strOrderIds.Split(','))
             {
-                DBHelper.InsertData("maintain_task_log", new string[,] {
-                    {"task_id", "int", strOrderId.Trim() }, {"oper_open_id", "varchar", openId.Trim() }, 
-                    {"oper_open_id", "varchar", "waybill_confirm" }
-                });
-                EquipMaintainTask.CreateSteps(int.Parse(strOrderId.Trim()));
-            }
-            catch
-            {
+                try
+                {
+                    DBHelper.InsertData("maintain_task_log", new string[,] {
+                        {"task_id", "int", strOrderId.Trim() }, {"oper_open_id", "varchar", openId.Trim() }, 
+                        {"oper", "varchar", "waybill_confirm" }
+                    });
+                    EquipMaintainTask.CreateSteps(int.Parse(strOrderId.Trim()));
+                }
+                catch
+                {
 
+                }
             }
         }
+        
         Response.Write("{\"status\": 0}");
     }
 </script>
