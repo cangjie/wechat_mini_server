@@ -36,6 +36,21 @@
             cmd.Dispose();
             conn.Dispose();
         }
+        foreach (string strOrderId in strOrderIds.Split(','))
+        {
+            try
+            {
+                DBHelper.InsertData("maintain_task_log", new string[,] {
+                    {"task_id", "int", strOrderId.Trim() }, {"oper_open_id", "varchar", openId.Trim() }, 
+                    {"oper_open_id", "varchar", "waybill_confirm" }
+                });
+                EquipMaintainTask.CreateSteps(int.Parse(strOrderId.Trim()));
+            }
+            catch
+            {
+
+            }
+        }
         Response.Write("{\"status\": 0}");
     }
 </script>

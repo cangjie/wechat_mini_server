@@ -103,4 +103,29 @@ public class EquipMaintainTask
         dt.Dispose();
         return maxId;
     }
+
+    public static int CreateSteps(int taskId)
+    {
+        EquipMaintainTask task = new EquipMaintainTask(taskId);
+        DataTable dtTemplateDetail = DBHelper.GetDataTable(" select * from maintain_template_detail where template_id = " 
+            + task._fields["template_id"].ToString().Trim() + " order by sort, [id]");
+        int i = 1;
+        foreach (DataRow drTemplateDetail in dtTemplateDetail.Rows)
+        {
+            try
+            {
+                DBHelper.InsertData("maintain_task_detail", new string[,] {
+                    {"task_id", "int", taskId.ToString() }, {"sort", "int", (i * 10).ToString() },
+                    {"name", "varchar", drTemplateDetail["name"].ToString() }, {"memo", "varchar", drTemplateDetail["memo"].ToString() },
+                    {"need_photo", "int", drTemplateDetail["need_photo"].ToString() }
+                });
+            }
+            catch
+            { 
+            
+            }
+            i++;
+        }
+        return 0;
+    }
 }
