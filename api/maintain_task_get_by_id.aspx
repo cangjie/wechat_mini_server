@@ -12,7 +12,7 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "0000000108"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "taskid", "0000000108"));
         DataTable dt = DBHelper.GetDataTable(" select * from maintain_task left join waybill_log on waybill_log.waybill_no = maintain_task.waybill_no "
             + " where maintain_task.[id] = " + orderId.ToString().Trim());
         if (dt.Rows.Count == 1)
