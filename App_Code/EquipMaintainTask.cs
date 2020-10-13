@@ -106,6 +106,17 @@ public class EquipMaintainTask
 
     public static int CreateSteps(int taskId)
     {
+        bool existsSteps = false;
+        DataTable dtOri = DBHelper.GetDataTable(" select * from maintain_task_detail where task_id = " + taskId.ToString());
+        if (dtOri.Rows.Count > 0)
+        {
+            existsSteps = true;
+        }
+        dtOri.Dispose();
+        if (existsSteps)
+        {
+            return 0;
+        }
         EquipMaintainTask task = new EquipMaintainTask(taskId);
         DataTable dtTemplateDetail = DBHelper.GetDataTable(" select * from maintain_template_detail where template_id = " 
             + task._fields["template_id"].ToString().Trim() + " order by sort, [id]");
@@ -131,6 +142,17 @@ public class EquipMaintainTask
 
     public static int CreateSubSteps(int stepId)
     {
+        bool existsSubSteps = false;
+        DataTable dtOri = DBHelper.GetDataTable(" select * from maintain_task_detail_sub where detail_id = " + stepId.ToString());
+        if (dtOri.Rows.Count > 0)
+        {
+            existsSubSteps = true;
+        }
+        dtOri.Dispose();
+        if (existsSubSteps)
+        {
+            return 0;
+        }
         int stepTemplateId = 0;
         int j = 0;
         DataTable dtStep = DBHelper.GetDataTable(" select * from maintain_task_detail where id = " + stepId.ToString());

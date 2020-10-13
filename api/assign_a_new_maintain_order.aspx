@@ -37,6 +37,19 @@
             DBHelper.UpdateData("maintain_task", new string[,] { { "service_status", "int", "1" } },
                 new string[,] { { "id", "int", id.ToString() } }, Util.conStr);
             string resultJson = Util.GetWebContent(updateApiUrl + "?sessionkey=" + Server.UrlEncode(sessionKey.Trim()) + "&table=maintain_task", "POST", postJson, "");
+            EquipMaintainTask.CreateSteps(id);
+            try
+            {
+                DBHelper.InsertData("maintain_task_log", new string[,] {
+                    {"task_id", "int", id.ToString() },
+                    {"oper_open_id", "varchar", openId.Trim() },
+                    {"oper", "varchar", "assign" }
+                });
+            }
+            catch
+            {
+
+            }
             Response.Write(resultJson);
         }
 
