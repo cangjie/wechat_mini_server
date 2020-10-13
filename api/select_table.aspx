@@ -11,7 +11,7 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        string sql = Util.GetSafeRequestValue(Request, "sql", " select * from waybill_log");
+        string sql = Util.GetSafeRequestValue(Request, "sql", " select * from mini_users where open_id = 'oHdTn5W8g2KOGPYOYFQyXaW46EVo'");
         try
         {
             DataTable dt = DBHelper.GetDataTable(sql);
@@ -22,9 +22,9 @@
             }
             Response.Write("{\"status\": 0, \"count\": " + dt.Rows.Count.ToString() + ", \"rows\": [" + results + "] }");
         }
-        catch
+        catch(Exception err)
         {
-            Response.Write("{\"status\": 1, \"error_message\": \"sql error\"}");
+            Response.Write("{\"status\": 1, \"error_message\": \"" + err.ToString().Replace("\"", "") + "\"}");
         }
     }
 </script>
