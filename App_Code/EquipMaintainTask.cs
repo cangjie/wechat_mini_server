@@ -168,7 +168,7 @@ public class EquipMaintainTask
                     j = j + DBHelper.InsertData("maintain_task_detail_sub", new string[,] {
                     {"detail_id", "int", stepId.ToString() }, {"template_detail_sub_id", "int", dtStepSub.Rows[i]["id"].ToString().Trim()},
                     {"sort", "int", (10*(i + 1)).ToString() }, {"action_type", "varchar", dtStepSub.Rows[i]["action_type"].ToString().Trim() },
-                    {"action_to_do", "varchar", dtStepSub.Rows[i]["action_to_do"].ToString() }
+                    {"action_to_do", "varchar", dtStepSub.Rows[i]["action_to_do"].ToString() }, {"oper_open_id", "varchar", dtStepSub.Rows[i]["oper_open_id"].ToString() } 
                     });
                 }
                 catch
@@ -179,6 +179,8 @@ public class EquipMaintainTask
         }
         return j;
     }
+
+    
 
 
 
