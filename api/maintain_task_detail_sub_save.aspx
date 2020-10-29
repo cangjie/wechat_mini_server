@@ -13,7 +13,7 @@
         Response.Write(GetContent(json2)+"<br>");
         Response.Write(GetContent(json3));
         */
-        
+
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
         string operOpenId = MiniUsers.CheckSessionKey(sessionKey.Trim());
         MiniUsers oper = new MiniUsers(operOpenId.Trim());
@@ -22,12 +22,16 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        int i = 0;
-        for (; Request[i.ToString()] != null && !Request[i.ToString()].Trim().Equals(""); i++)
-        {
-            Response.Write(GetContent(Server.UrlDecode(Request[i.ToString()]))+"\r\n");
-        }
         
+        for (int i = 0; Request[i.ToString()] != null && !Request[i.ToString()].Trim().Equals(""); i++)
+        {
+            string json = Server.UrlDecode(Request[i.ToString()]).Trim();
+            string id = Util.GetSimpleJsonValueByKey(json, "id");
+            string content = GetContent(json);
+            DBHelper.UpdateData("maintain_task_detail_sub", new string[,] { {"action_content", "varchar", content.Trim() }}, 
+                new string[,] { {"id", "int", id.Trim() }, {"oper_open_id", "varchar", operOpenId.Trim() }}, Util.conStr.Trim());
+        }
+
     }
 
     public static string GetContent(string json)
