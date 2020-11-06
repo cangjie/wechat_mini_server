@@ -17,6 +17,33 @@ public class EquipMaintainTaskDetail
         //
     }
 
+    public EquipMaintainTaskDetail(int detailId)
+    {
+        DataTable dt = DBHelper.GetDataTable(" select * from maintain_task_detail where [id] = " + detailId.ToString());
+        if (dt.Rows.Count > 0)
+        {
+            _fields = dt.Rows[0];
+        }
+        else
+        {
+            throw new Exception("Not Found.");
+        }
+    }
+
+    public bool SetStatus(string status)
+    {
+        return false;
+    }
+
+    public EquipMaintainTask MaintainTask
+    {
+        get
+        {
+            return new EquipMaintainTask(int.Parse(_fields["task_id"].ToString().Trim()));
+        }
+    }
+    
+
     public static EquipMaintainTaskDetail GetMaintainTaskDetail(int detailSubId)
     {
         EquipMaintainTaskDetail detail = new EquipMaintainTaskDetail();
@@ -29,4 +56,6 @@ public class EquipMaintainTaskDetail
         }
         return detail;
     }
+
+    
 }

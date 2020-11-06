@@ -78,6 +78,23 @@ public class EquipMaintainTask
         }
     }
 
+
+    public EquipMaintainTaskDetail[] TaskDetails
+    {
+        get
+        {
+            DataTable dt = DBHelper.GetDataTable(" select * from maintain_task_detail where task_id = " + _fields["id"].ToString()
+                + " order by [sort], [id] ");
+            EquipMaintainTaskDetail[] arr = new EquipMaintainTaskDetail[dt.Rows.Count];
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                arr[i] = new EquipMaintainTaskDetail();
+                arr[i]._fields = dt.Rows[i];
+            }
+            return arr;
+        }
+    }
+
     public static int CreateTaskFromCovid19Service(string cardNo)
     {
         int maxId = 0;
