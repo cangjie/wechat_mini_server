@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Security.Permissions;
 
 /// <summary>
 /// Summary description for EquipMaintainTaskDetail
@@ -30,8 +31,63 @@ public class EquipMaintainTaskDetail
         }
     }
 
-    public bool SetStatus(string status)
+    public int ID
     {
+        get
+        {
+            return int.Parse(_fields["id"].ToString().Trim());
+        }
+    }
+
+    public string Status
+    {
+        get
+        {
+            return _fields["status"].ToString();
+        }
+    }
+
+    public bool SetStatus(string status, string opneId)
+    {
+        bool ret = true;
+
+        switch (status.Trim())
+        {
+            case "已开始":
+                if (MaintainTask.Status.Trim().Equals("进行中") || MaintainTask.Status.Trim().Equals("待交付"))
+                {
+                    ret = false;
+                }
+                if (Last._fields != null && !(Last.Status.Trim().Equals("已完成") || Last.Status.Trim().Equals("强行中止")))
+                {
+                    ret = false;
+                }
+                break;
+            case "强行中止":
+                if (!Status.Trim().Equals("已开始"))
+                {
+                    ret = false;
+                }
+                break;
+            case "已完成":
+                if (!Status.Trim().Equals("强行中止") && !Status.Equals("已开始"))
+                {
+                    ret = false;
+                }
+                break;
+            default:
+                ret = false;
+                break;
+        }
+        if (ret)
+        {
+            DBHelper.UpdateData("maintain_task_detail", new string[,] { {"status", "varchar", status.Trim() } },
+                new string[,] { { "id", "int", ID.ToString() } }, Util.conStr);
+            DBHelper.InsertData("maintain_task_log", new string[,] { {"task_id", "int", MaintainTask._fields["id"].ToString() },
+            {"detail_id", "int", ID.ToString() }, {"oper_open_id", "varchar", opneId.Trim()}, {"oper", "varchar", status.Trim() } });
+
+        }
+        
         return false;
     }
 
@@ -40,6 +96,24 @@ public class EquipMaintainTaskDetail
         get
         {
             return new EquipMaintainTask(int.Parse(_fields["task_id"].ToString().Trim()));
+        }
+    }
+
+    public EquipMaintainTaskDetail Last
+    {
+        get
+        {
+            EquipMaintainTaskDetail ret = new EquipMaintainTaskDetail();
+            EquipMaintainTaskDetail[] detailArr = MaintainTask.TaskDetails;
+            for (int i = 0; i < detailArr.Length; i++)
+            {
+                if (detailArr[i].ID == this.ID && i > 0)
+                {
+                    ret = detailArr[i - 1];
+                    break;
+                }
+            }
+            return ret;
         }
     }
     

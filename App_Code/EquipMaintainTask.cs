@@ -95,6 +95,50 @@ public class EquipMaintainTask
         }
     }
 
+    public string Status
+    {
+        get
+        {
+            string status = "未开始";
+            bool allUnStart = true;
+            bool executing = false;
+            bool allFinish = true;
+            foreach (EquipMaintainTaskDetail detail in TaskDetails)
+            {
+                if (allUnStart && !detail._fields["status"].ToString().Equals("未开始"))
+                {
+                    allUnStart = false;
+                }
+                if (!executing && detail._fields["status"].ToString().Equals("进行中"))
+                {
+                    executing = true;
+                }
+                if (allFinish && !detail._fields["status"].ToString().Equals("已完成"))
+                {
+                    allFinish = false;
+                }
+            }
+            if (executing)
+            {
+                status = "进行中";
+            }
+            else if (allFinish)
+            {
+                status = "待交付";
+            }
+            else if (!allUnStart && !executing && !allFinish)
+            {
+                status = "等待中";
+            }
+            else
+            {
+                status = "未知状态";
+            }
+
+            return status;
+        }
+    }
+
     public static int CreateTaskFromCovid19Service(string cardNo)
     {
         int maxId = 0;
