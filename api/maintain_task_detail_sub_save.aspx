@@ -22,15 +22,18 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        
+        string jsonArr = "";
         for (int i = 0; Request[i.ToString()] != null && !Request[i.ToString()].Trim().Equals(""); i++)
         {
             string json = Server.UrlDecode(Request[i.ToString()]).Trim();
             string id = Util.GetSimpleJsonValueByKey(json, "id");
             string content = GetContent(json);
-            DBHelper.UpdateData("maintain_task_detail_sub", new string[,] { {"action_content", "varchar", content.Trim() }}, 
+            int j = DBHelper.UpdateData("maintain_task_detail_sub", new string[,] { {"action_content", "varchar", content.Trim() }},
                 new string[,] { {"id", "int", id.Trim() }, {"oper_open_id", "varchar", operOpenId.Trim() }}, Util.conStr.Trim());
+            jsonArr = jsonArr.Trim() + (jsonArr.Trim().Equals("") ? "" : ", ") + "{ \"id\": " + id.ToString().Trim() + ", \"content\": \""
+                + content.Trim().Replace("\"", "").Trim() + "\", \"result\": " + j.ToString() + "}";
         }
+        Response.Write("{\"result_arr\": [" + jsonArr.Trim() + "]}");
 
     }
 
