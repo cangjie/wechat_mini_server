@@ -19,11 +19,11 @@
         bool ret = detail.SetStatus(status.Trim(), openId.Trim());
         if (ret)
         {
-            Response.Write("{\"status\": 0, success: 1 }");
+            Response.Write("{\"status\": 0, \"success\": 1 }");
         }
         else
         { 
-            Response.Write("{\"status\": 0, success: 0 }");
+            Response.Write("{\"status\": 0, \"success\": 0 }");
         }
     }
 </script>
