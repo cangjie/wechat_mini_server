@@ -85,7 +85,18 @@ public class EquipMaintainTaskDetail
         }
         if (ret)
         {
-            DBHelper.UpdateData("maintain_task_detail", new string[,] { {"status", "varchar", status.Trim() },{"oper_open_id", "varchar", opneId.Trim() } },
+            string[,] updateStrArr = new string[,] { { "status", "varchar", status.Trim() }, { "oper_open_id", "varchar", opneId.Trim() } };
+            if (status.Trim().Equals("已开始"))
+            {
+                updateStrArr = new string[,] { { "status", "varchar", status.Trim() }, 
+                    { "oper_open_id", "varchar", opneId.Trim() }, {"start_date_time", "datetime", DateTime.Now.ToString() } };
+            }
+            if (status.Trim().Equals("已完成"))
+            {
+                updateStrArr = new string[,] { { "status", "varchar", status.Trim() },
+                    { "oper_open_id", "varchar", opneId.Trim() }, {"end_date_time", "datetime", DateTime.Now.ToString() } };
+            }
+            DBHelper.UpdateData("maintain_task_detail", updateStrArr,
                 new string[,] { { "id", "int", ID.ToString() } }, Util.conStr);
             DBHelper.InsertData("maintain_task_log", new string[,] { {"task_id", "int", MaintainTask._fields["id"].ToString() },
             {"detail_id", "int", ID.ToString() }, {"oper_open_id", "varchar", opneId.Trim()}, {"oper", "varchar", status.Trim() } });
