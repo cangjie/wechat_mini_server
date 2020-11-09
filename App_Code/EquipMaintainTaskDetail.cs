@@ -85,7 +85,7 @@ public class EquipMaintainTaskDetail
         }
         if (ret)
         {
-            DBHelper.UpdateData("maintain_task_detail", new string[,] { {"status", "varchar", status.Trim() } },
+            DBHelper.UpdateData("maintain_task_detail", new string[,] { {"status", "varchar", status.Trim() },{"oper_open_id", "varchar", opneId.Trim() } },
                 new string[,] { { "id", "int", ID.ToString() } }, Util.conStr);
             DBHelper.InsertData("maintain_task_log", new string[,] { {"task_id", "int", MaintainTask._fields["id"].ToString() },
             {"detail_id", "int", ID.ToString() }, {"oper_open_id", "varchar", opneId.Trim()}, {"oper", "varchar", status.Trim() } });
