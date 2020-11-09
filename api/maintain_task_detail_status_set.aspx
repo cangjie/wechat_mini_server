@@ -14,6 +14,16 @@
             Response.End();
         }
         int detailId = int.Parse(Util.GetSafeRequestValue(Request, "id", "0"));
-
+        string status = Server.UrlDecode(Util.GetSafeRequestValue(Request, "status", ""));
+        EquipMaintainTaskDetail detail = new EquipMaintainTaskDetail(detailId);
+        bool ret = detail.SetStatus(status.Trim(), openId.Trim());
+        if (ret)
+        {
+            Response.Write("{\"status\": 0, success: 1 }");
+        }
+        else
+        { 
+            Response.Write("{\"status\": 0, success: 0 }");
+        }
     }
 </script>
