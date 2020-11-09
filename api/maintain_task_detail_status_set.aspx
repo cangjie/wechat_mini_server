@@ -13,8 +13,8 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        int detailId = int.Parse(Util.GetSafeRequestValue(Request, "id", "0"));
-        string status = Server.UrlDecode(Util.GetSafeRequestValue(Request, "status", ""));
+        int detailId = int.Parse(Util.GetSafeRequestValue(Request, "id", "7"));
+        string status = Server.UrlDecode(Util.GetSafeRequestValue(Request, "status", "已开始"));
         EquipMaintainTaskDetail detail = new EquipMaintainTaskDetail(detailId);
         bool ret = detail.SetStatus(status.Trim(), openId.Trim());
         if (ret)

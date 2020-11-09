@@ -103,7 +103,7 @@ public class EquipMaintainTaskDetail
 
         }
         
-        return false;
+        return ret;
     }
 
     public EquipMaintainTask MaintainTask
