@@ -6,7 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        EquipMaintainTask.CreateSubSteps(6);
+        EquipMaintainTaskDetail detail = new EquipMaintainTaskDetail(7);
+        detail.SetStatus("已开始", "test");
     }
 </script>
 
@@ -17,7 +18,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <%=Util.conStr%>
+            <%= (new EquipMaintainTask(2)).Status.Trim() %>
         </div>
     </form>
 </body>

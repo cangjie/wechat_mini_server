@@ -109,7 +109,7 @@ public class EquipMaintainTask
                 {
                     allUnStart = false;
                 }
-                if (!executing && detail._fields["status"].ToString().Equals("进行中"))
+                if (!executing && detail._fields["status"].ToString().Equals("已开始"))
                 {
                     executing = true;
                 }
@@ -220,6 +220,7 @@ public class EquipMaintainTask
         if (dtStep.Rows.Count > 0)
         {
             stepTemplateId = int.Parse(dtStep.Rows[0]["template_detail_id"].ToString());
+            string openId = dtStep.Rows[0]["oper_open_id"].ToString().Trim();
             DataTable dtStepSub = DBHelper.GetDataTable(" select * from maintain_template_detail_sub   where detail_id = " + stepTemplateId.ToString()
                 + " order by sort,[id] ");
             for (int i = 0; i < dtStepSub.Rows.Count; i++)
@@ -229,10 +230,10 @@ public class EquipMaintainTask
                     j = j + DBHelper.InsertData("maintain_task_detail_sub", new string[,] {
                     {"detail_id", "int", stepId.ToString() }, {"template_detail_sub_id", "int", dtStepSub.Rows[i]["id"].ToString().Trim()},
                     {"sort", "int", (10*(i + 1)).ToString() }, {"action_type", "varchar", dtStepSub.Rows[i]["action_type"].ToString().Trim() },
-                    {"action_to_do", "varchar", dtStepSub.Rows[i]["action_to_do"].ToString() }, {"oper_open_id", "varchar", dtStepSub.Rows[i]["oper_open_id"].ToString() } 
+                    {"action_to_do", "varchar", dtStepSub.Rows[i]["action_to_do"].ToString() }, {"oper_open_id", "varchar", openId.Trim() } 
                     });
                 }
-                catch
+                catch(Exception msg)
                 { 
                 
                 }
