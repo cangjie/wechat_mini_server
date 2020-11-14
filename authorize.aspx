@@ -10,7 +10,7 @@
         string callBack = Util.GetSafeRequestValue(Request, "callback",
             ((Request.UrlReferrer==null) ? "" : Request.UrlReferrer.ToString().Trim()));
         Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" 
-            + System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim()   
+            + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()   
             + "&redirect_uri=" + Server.UrlEncode(scheme.Trim() + "://"
             + System.Configuration.ConfigurationSettings.AppSettings["domain_name"].Trim()
             + "/authorize_callback.aspx?callback=" + Server.UrlEncode(callBack))

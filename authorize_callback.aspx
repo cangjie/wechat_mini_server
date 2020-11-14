@@ -28,8 +28,8 @@
 
             string jsonStr = "";
             jsonStr = Util.GetWebContent("https://api.weixin.qq.com/sns/oauth2/access_token?appid="
-                + System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim()
-                + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim()
+                + System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim()
+                + "&secret=" + System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim()
                 + "&code=" + code + "&grant_type=authorization_code", "GET", "", "text/htm");
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
