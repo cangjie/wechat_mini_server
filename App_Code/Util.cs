@@ -314,8 +314,8 @@ public class Util
         DateTime nowDate = DateTime.Now;
         if (nowDate - tokenTime > new TimeSpan(0, 10, 0))
         {
-            token = GetAccessToken(System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim(),
-                System.Configuration.ConfigurationSettings.AppSettings["wxappsecret"].Trim());
+            token = GetAccessToken(System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim(),
+                System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim());
             tokenTime = nowDate;
         }
         return token;
