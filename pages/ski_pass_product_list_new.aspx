@@ -6,7 +6,7 @@
 
     public Product[] prodArr;
 
-    public WeixinUser currentUser;
+    public MiniUsers currentUser;
 
     public string openId = "";
 
@@ -14,31 +14,30 @@
 
     public KeyValuePair<DateTime, string>[] selectedDate = new KeyValuePair<DateTime, string>[5];
 
-
+    public bool noSession = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
 
-        string currentPageUrl = Request.Url.ToString().Split('?')[0].Trim();
-        if (!Request.QueryString.ToString().Trim().Equals(""))
-        {
-            currentPageUrl = currentPageUrl + "?" + Request.QueryString.ToString().Trim();
-        }
-        if (Session["user_token"] == null || Session["user_token"].ToString().Trim().Equals(""))
-        {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
-        }
-        
-        userToken = Session["user_token"].ToString();
+        string sessionKey = Server.UrlDecode(Util.GetSafeRequestValue(Request, "sessionkey", ""));
 
-        //userToken = "efa86b2cb53ff14b4500298208effda1652c863ac117668953d4ef93f807351b4ff11040";
-        openId = WeixinUser.CheckToken(userToken);
-        if (openId.Trim().Equals(""))
+        if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
-            Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
+            sessionKey = Session["sessionkey"].ToString().Trim();
         }
-        currentUser = new WeixinUser(WeixinUser.CheckToken(userToken));
+
+        string openId = MiniUsers.CheckSessionKey(sessionKey);
+
+        if (!openId.Trim().Equals(""))
+        {
+            Session["sessionkey"] = sessionKey.Trim();
+        }
+        else
+        {
+            Session.Clear();
+        }
+
+        currentUser = new MiniUsers(openId.Trim());
 
         /*
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
@@ -67,7 +66,7 @@
         prodArr = Product.GetSkiPassList(currentResort);
     }
 
-    
+
 
 
 </script>
