@@ -17,12 +17,14 @@
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
     <script type="text/javascript" >
         function goback() {
-            document.write(wx.miniProgram);
+            //document.write(wx.miniProgram);
             try {
-                wx.miniProgram.navigateTo({ url: '/logs/logs' });
+ document.write("a");
+                wx.miniProgram.navigateTo({ url: '/pages/logs/logs' });
+document.write('b');
             }
             catch (msg) {
-                document.write(msg);
+                document.write("aa");
             }
         }
     </script>
