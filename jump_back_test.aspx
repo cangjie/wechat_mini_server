@@ -17,7 +17,8 @@
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
     <script type="text/javascript" >
         function goback() {
-            wx.miniProgram.navigateTo({ url: '/logs/logs' });
+            document.write(wx.miniProgram);
+            //wx.miniProgram.navigateTo({ url: '/logs/logs' });
         }
     </script>
 </head>
