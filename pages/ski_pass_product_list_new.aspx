@@ -19,7 +19,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string sessionKey = Server.UrlDecode(Util.GetSafeRequestValue(Request, "sessionkey", ""));
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hsuqJBh+SCS3Mw1tiXxyNA==");
 
         if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
@@ -35,7 +35,10 @@
         else
         {
             Session.Clear();
+            noSession = true;
         }
+
+        
 
         currentUser = new MiniUsers(openId.Trim());
 
