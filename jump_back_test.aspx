@@ -18,7 +18,12 @@
     <script type="text/javascript" >
         function goback() {
             document.write(wx.miniProgram);
-            //wx.miniProgram.navigateTo({ url: '/logs/logs' });
+            try {
+                wx.miniProgram.navigateTo({ url: '/logs/logs' });
+            }
+            catch (msg) {
+                document.write(msg);
+            }
         }
     </script>
 </head>
