@@ -14,10 +14,15 @@
             Response.Write("{\"status\": 1, \"error_message\": \"session key invalid.\" }");
             Response.End();
         }
+        if (cell.Trim().Equals(""))
+        { 
+            Response.Write("{\"status\": 1, \"error_message\": \"cell number invalid.\" }");
+            Response.End();
+        }
         DBHelper.UpdateData("mini_users", new string[,] { { "cell_number", "varchar", cell.Trim() } },
             new string[,] { { "open_id", "varchar", openId.Trim() } }, Util.conStr.Trim());
         DBHelper.InsertData("mini_user_cell_number_used",
             new string[,] { { "open_id", "varchar", openId.Trim() }, { "cell_number", "varchar", cell.Trim() } });
-
+        Response.Write(json);
     }
 </script>

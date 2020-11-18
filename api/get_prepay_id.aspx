@@ -4,10 +4,11 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        string key = "Snowmeetweixinpaymentsecretkey20";
         string nonceStr = GetNonceString(32);
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
-        string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        string mch_id = "1604236346";//System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
         XmlNode rootXmlNode = xmlD.SelectSingleNode("//xml");
@@ -25,6 +26,10 @@
         nonce_str = nonceStr.Trim();
         n = xmlD.CreateNode(XmlNodeType.Element, "nonce_str", "");
         n.InnerText = nonceStr;
+        rootXmlNode.AppendChild(n);
+
+        n = xmlD.CreateNode(XmlNodeType.Element, "sign_type", "");
+        n.InnerText = "MD5";
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "notify_url", "");
@@ -71,13 +76,16 @@
         
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
-        s = Util.GetMd5Sign(s, "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0");
+        s = Util.GetMd5Sign(s, key);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "sign", "");
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
-        string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        //string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        string prepayXml = Util.GetWebContent("https://api.mch.weixin.qq.com/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+
+
 
         Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") 
             + "<br/>" + prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
