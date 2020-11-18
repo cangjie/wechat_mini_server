@@ -9,7 +9,7 @@ using System.Web;
 /// </summary>
 public class MiniUsers
 {
-    DataRow _fields;
+    public DataRow _fields;
 
     public MiniUsers()
     {
