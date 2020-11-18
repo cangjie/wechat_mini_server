@@ -39,7 +39,7 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");
         try
         {
-            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oRY1ws3bQFILrsUJtR5mKy6e2kQI").Trim();
+            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oHdTn5W8g2KOGPYOYFQyXaW46EVo").Trim();
         }
         catch
         {
