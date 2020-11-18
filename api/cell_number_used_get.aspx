@@ -17,12 +17,16 @@
         DataTable dt = DBHelper.GetDataTable(" select top 1 * from mini_user_cell_number_used where open_id = '"
             + openId.Trim() + "' order by [id] desc ");
         DateTime lastUpdateDate = DateTime.Parse("2020-1-1");
+        if (dt.Rows.Count > 0)
+        {
+            lastUpdateDate = DateTime.Parse(dt.Rows[0]["create_date"].ToString());
+        }
         bool needUpdate = false;
         if (DateTime.Now - lastUpdateDate > new TimeSpan(10, 0, 0, 0) || cellNumber.Trim().Equals(""))
         {
             needUpdate = true;
         }
-        Response.Write("{\"status\": 0, \"number\": \"" + cellNumber.Trim() + "\", \"need_update\":" 
+        Response.Write("{\"status\": 0, \"number\": \"" + cellNumber.Trim() + "\", \"need_update\":"
             + (needUpdate?"1":"0") + "  }");
 
     }
