@@ -5,6 +5,9 @@
 <script runat="server">
 
     public string prepayId = "";
+    public string timeStampStr = "";
+    public string nonceString = "";
+    public string sign = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -13,6 +16,8 @@
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         string key = "abcdefghijklmnopqrstuvwxyz123456";
         string nonce_str = Util.GetNonceString(32);
+
+
 
         OnlineOrder order = new OnlineOrder(orderId);
 
@@ -85,6 +90,31 @@
         XmlDocument xmlPrepay = new XmlDocument();
         xmlPrepay.LoadXml(prepayXml);
         prepayId = xmlPrepay.SelectSingleNode("//xml/prepay_id").InnerText.Trim();
+
+        timeStampStr = Util.GetTimeStamp();
+        nonceString = Util.GetNonceString(32);
+
+        XmlDocument xmlPayClient = new XmlDocument();
+        xmlPayClient.LoadXml("<xml/>");
+        rootXmlNode = xmlPayClient.SelectSingleNode("//xml");
+        n = xmlD.CreateNode(XmlNodeType.Element, "timeStamp", "");
+        n.InnerText = timeStampStr.Trim();
+        rootXmlNode.AppendChild(n);
+
+        n = xmlD.CreateNode(XmlNodeType.Element, "nonceStr", "");
+        n.InnerText = nonceString.Trim();
+        rootXmlNode.AppendChild(n);
+
+        n = xmlD.CreateNode(XmlNodeType.Element, "package", "");
+        n.InnerText = "prepay_id=" + prepayId.Trim();
+        rootXmlNode.AppendChild(n);
+        s = Util.ConverXmlDocumentToStringPair(xmlD);
+        //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
+        s = Util.GetMd5Sign(s, key);
+
+
+        sign = s.Trim();
+
 
     }
 </script>
