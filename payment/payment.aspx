@@ -97,15 +97,15 @@
         XmlDocument xmlPayClient = new XmlDocument();
         xmlPayClient.LoadXml("<xml/>");
         rootXmlNode = xmlPayClient.SelectSingleNode("//xml");
-        n = xmlD.CreateNode(XmlNodeType.Element, "timeStamp", "");
+        n = xmlPayClient.CreateNode(XmlNodeType.Element, "timeStamp", "");
         n.InnerText = timeStampStr.Trim();
         rootXmlNode.AppendChild(n);
 
-        n = xmlD.CreateNode(XmlNodeType.Element, "nonceStr", "");
+        n = xmlPayClient.CreateNode(XmlNodeType.Element, "nonceStr", "");
         n.InnerText = nonceString.Trim();
         rootXmlNode.AppendChild(n);
 
-        n = xmlD.CreateNode(XmlNodeType.Element, "package", "");
+        n = xmlPayClient.CreateNode(XmlNodeType.Element, "package", "");
         n.InnerText = "prepay_id=" + prepayId.Trim();
         rootXmlNode.AppendChild(n);
         s = Util.ConverXmlDocumentToStringPair(xmlD);
@@ -133,6 +133,6 @@
     </form>
 </body>
 <script type="text/javascript" >
-    wx.miniProgram.navigateTo({ url: '/pages/payment/payment?orderid=<%=Util.GetSafeRequestValue(Request, "product_id", "0")%>&prepayid=<%=prepayId.Trim()%>' });
+    wx.miniProgram.navigateTo({ url: '/pages/payment/payment?orderid=<%=Util.GetSafeRequestValue(Request, "product_id", "0")%>&prepayid=<%=prepayId.Trim()%>&timestamp=<%=timeStampStr%>&nonce=<%=nonceString%>&sign=<%=sign%>' });
 </script>
 </html>
