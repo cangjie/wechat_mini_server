@@ -37,13 +37,13 @@ public class OnlineOrder
     {
         if (_fields == null)
         {
-            WeixinUser user = new WeixinUser(openId.Trim());
+            MiniUsers user = new MiniUsers(openId.Trim());
             if (user != null)
             {
                 string[,] insertParam = { {"type", "varchar", Type.Trim() },
                     {"open_id", "varchar", openId.Trim() },
-                    {"cell_number", "varchar", user.CellNumber.Trim() },
-                    {"name", "varchar", user.Nick.Trim() },
+                    {"cell_number", "varchar", user._fields["cell_number"].ToString().Trim() },
+                    {"name", "varchar", "小程序用户" },
                     {"pay_method", "varchar", PayMethod.Trim() },
                     {"order_price", "float", OrderPrice.ToString() },
                     {"order_real_pay_price", "float", OrderPrice.ToString() },
