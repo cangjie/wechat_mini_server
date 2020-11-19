@@ -101,6 +101,10 @@
         n.InnerText = timeStampStr.Trim();
         rootXmlNode.AppendChild(n);
 
+        n = xmlPayClient.CreateNode(XmlNodeType.Element, "signType", "");
+        n.InnerText = "MD5";
+        rootXmlNode.AppendChild(n);
+
         n = xmlPayClient.CreateNode(XmlNodeType.Element, "nonceStr", "");
         n.InnerText = nonceString.Trim();
         rootXmlNode.AppendChild(n);
