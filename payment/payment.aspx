@@ -112,12 +112,13 @@
         n = xmlPayClient.CreateNode(XmlNodeType.Element, "package", "");
         n.InnerText = "prepay_id=" + prepayId.Trim();
         rootXmlNode.AppendChild(n);
-        s = Util.ConverXmlDocumentToStringPair(xmlD);
+        s = Util.ConverXmlDocumentToStringPair(xmlPayClient);
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
-        s = Util.GetMd5Sign(s, key);
+        sign = Util.GetMd5Sign(s, key);
 
-
-        sign = s.Trim();
+        Response.Write("<br>" + s + "<br>" + sign);
+        Response.End();
+        //sign = s.Trim();
 
 
     }
