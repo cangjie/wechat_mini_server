@@ -67,6 +67,7 @@
         }
 
         prodArr = Product.GetSkiPassList(currentResort);
+        userToken = Session["sessionkey"].ToString().Trim();
     }
 
 

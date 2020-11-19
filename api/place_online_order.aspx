@@ -5,7 +5,8 @@
         string token = Util.GetSafeRequestValue(Request, "token", "db7f7360ec8994d1c710bc6de207ee7292e5383de08ced03a7303882c6a5df27179dd45d");
         string cartJson = Util.GetSafeRequestValue(Request, "cart", "{\"cart_array\" : [{ \"product_id\": 123, \"count\": 1 }]}");
         string source = Util.GetSafeRequestValue(Request, "source", "");
-        string openId = WeixinUser.CheckToken(token);
+        //string openId = WeixinUser.CheckToken(token);
+        string openId = MiniUsers.CheckSessionKey(token);
         if (openId.Trim().Equals(""))
         {
             Response.Write("{\"status\" : \"1\", \"error_message\":\"token is invalid.\"}");
