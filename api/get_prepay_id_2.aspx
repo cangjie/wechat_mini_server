@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string key = "Snowmeetweixinpaymentsecretkey20";
+        string key = "jihuowangluoactivenetworkjarrodc";
         string nonceStr = GetNonceString(32);
         string appId = "wx905b45631b024b9c"; //System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
