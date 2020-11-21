@@ -6,8 +6,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string str = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
-        File.AppendAllText(DateTime.Now.ToString() + "\r\n" + Server.MapPath("payment_callback.txt"), str + "\r\n");
+        File.AppendAllText(Server.MapPath("payment_callback.txt"), DateTime.Now.ToString() + "\r\n" + str + "\r\n");
         XmlDocument xmlD = new XmlDocument();
+        //xmlD.Load(Server.MapPath("c.xml"));
         xmlD.LoadXml(str);
         if (valid(xmlD))
         {
