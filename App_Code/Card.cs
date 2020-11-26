@@ -171,7 +171,7 @@ public class Card
 
 
 
-    public WeixinUser Owner
+    public MiniUsers Owner
     {
         get
         {
@@ -192,7 +192,7 @@ public class Card
                     {
                         ownerOpenId = _fields["owner_open_id"].ToString().Trim();
                     }
-                    return new WeixinUser(ownerOpenId);
+                    return new MiniUsers(ownerOpenId);
                     break;
             }
             return null;

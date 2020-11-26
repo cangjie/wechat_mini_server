@@ -47,6 +47,21 @@ public class MiniUsers
         }
     }
 
+    public string OpenId
+    {
+        get
+        {
+            return _fields["open_id"].ToString().Trim();
+        }
+    }
+
+    public string CellNumber
+    {
+        get
+        {
+            return _fields["cell_number"].ToString().Trim();
+        }
+    }
     public static string CheckSessionKey(string sessionKey)
     {
         string openId = "";

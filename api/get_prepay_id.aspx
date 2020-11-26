@@ -6,8 +6,8 @@
     {
         string key = "Snowmeetweixinpaymentsecretkey20";
         string nonceStr = GetNonceString(32);
-        string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
-        string appSecret = System.Configuration.ConfigurationSettings.AppSettings["appsecret"].Trim();
+        string appId = "wxf91253fd1c38d24e";// System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+        
         string mch_id = "1604236346";//System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
@@ -39,7 +39,7 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");
         try
         {
-            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oHdTn5W8g2KOGPYOYFQyXaW46EVo").Trim();
+            n.InnerText = Util.GetSafeRequestValue(Request, "openid", "oZBHkjoXAYNrx5wKCWRCD5qSGrPM").Trim();
         }
         catch
         {
@@ -57,7 +57,7 @@
 
         n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
         string timeStamp = Util.GetTimeStamp();
-        
+
         n.InnerText = timeStamp;
         string out_trade_no = n.InnerText.Trim();
         rootXmlNode.AppendChild(n);
@@ -73,7 +73,7 @@
         n = xmlD.CreateNode(XmlNodeType.Element, "total_fee", "");
         n.InnerText = Util.GetSafeRequestValue(Request, "total_fee", "1");
         rootXmlNode.AppendChild(n);
-        
+
         string s = Util.ConverXmlDocumentToStringPair(xmlD);
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
         s = Util.GetMd5Sign(s, key);
@@ -87,7 +87,7 @@
 
 
 
-        Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;") 
+        Response.Write(xmlD.InnerXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;")
             + "<br/>" + prepayXml.Trim().Replace("<", "&lt;").Replace(">", "&gt;"));
 
     }
