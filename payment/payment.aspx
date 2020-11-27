@@ -117,7 +117,7 @@
         sign = Util.GetMd5Sign(s, key);
 
         Response.Write("<br>" + s + "<br>" + sign);
-        //Response.End();
+        Response.End();
         //sign = s.Trim();
 
 
