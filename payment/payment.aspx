@@ -97,6 +97,11 @@
         XmlDocument xmlPayClient = new XmlDocument();
         xmlPayClient.LoadXml("<xml/>");
         rootXmlNode = xmlPayClient.SelectSingleNode("//xml");
+
+        n = xmlPayClient.CreateNode(XmlNodeType.Element, "appId", "");
+        n.InnerText = appId;
+        rootXmlNode.AppendChild(n);
+
         n = xmlPayClient.CreateNode(XmlNodeType.Element, "timeStamp", "");
         n.InnerText = timeStampStr.Trim();
         rootXmlNode.AppendChild(n);

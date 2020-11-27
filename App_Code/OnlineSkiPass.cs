@@ -11,7 +11,7 @@ public class OnlineSkiPass
 {
     public string cardCode = "";
     public string productName = "";
-    public WeixinUser owner;
+    public MiniUsers owner;
     public int count = 0;
     public bool used = false;
     public DateTime useDate;
@@ -31,7 +31,7 @@ public class OnlineSkiPass
         count = associateOnlineOrderDetail.count;
         associateCard = new Card(code);
 
-        owner = new WeixinUser(associateOnlineOrder._fields["open_id"].ToString());
+        owner = new MiniUsers(associateOnlineOrder._fields["open_id"].ToString());
 
         if (associateCard._fields["type"].Equals("雪票"))
         {
@@ -130,7 +130,7 @@ public class OnlineSkiPass
         }
     }
 
-    public WeixinUser Owner
+    public MiniUsers Owner
     {
         get
         {
@@ -142,7 +142,7 @@ public class OnlineSkiPass
             {
                 if (_fields != null)
                 {
-                    return new WeixinUser(_fields["open_id"].ToString().Trim());
+                    return new MiniUsers(_fields["open_id"].ToString().Trim());
                 }
                 else
                 {

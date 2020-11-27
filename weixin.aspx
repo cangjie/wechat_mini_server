@@ -14,14 +14,16 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Stream s = Request.InputStream;
+        StreamReader sr = new StreamReader(s);
+        string xmlContent = sr.ReadToEnd();
+        File.AppendAllText(Server.MapPath("message_log.txt"), DateTime.Now.ToString() + "\r\n" + xmlContent.Trim() + "\r\n");
+        sr.Close();
         if (valid())
         {
             //Response.Write(Request["echostr"].Trim());
             //Response.End();
-            Stream s = Request.InputStream;
-            StreamReader sr = new StreamReader(s);
-            string xmlContent = sr.ReadToEnd();
-            sr.Close();
+            
             XmlDocument xmlD = new XmlDocument();
             xmlD.LoadXml(xmlContent);
             
