@@ -138,7 +138,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <%=Request.Url.ToString() %>
+            
         </div>
     </form>
 </body>
