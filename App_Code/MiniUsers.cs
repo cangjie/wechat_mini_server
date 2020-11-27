@@ -55,6 +55,20 @@ public class MiniUsers
         }
     }
 
+    public string OfficialAccountOpenId
+    {
+        get
+        {
+            string openId = "";
+            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and union_id = '" + OpenId.Trim().Replace("'", "") + "' ");
+            if (dt.Rows.Count > 0)
+            {
+                openId = dt.Rows[0]["open_id"].ToString();
+            }
+            return openId;
+        }
+    }
+
     public string CellNumber
     {
         get
