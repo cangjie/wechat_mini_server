@@ -6,7 +6,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", "2020-11-6"));
+        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", "2020-11-29"));
         int count = int.Parse(Util.GetSafeRequestValue(Request, "count", "1"));
         int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "86"));
 

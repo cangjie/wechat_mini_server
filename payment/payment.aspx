@@ -121,8 +121,8 @@
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
         sign = Util.GetMd5Sign(s, key);
 
-        Response.Write("<br>" + s + "<br>" + sign);
-        Response.End();
+        //Response.Write("<br>" + s + "<br>" + sign);
+        //Response.End();
         //sign = s.Trim();
 
 
