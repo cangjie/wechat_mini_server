@@ -17,26 +17,32 @@
     {
         orderId = Util.GetSafeRequestValue(Request, "orderid", "0");
         code = Util.GetSafeRequestValue(Request, "code", "");
-        
 
 
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hsuqJBh+SCS3Mw1tiXxyNA==");
+
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
+
+        if (!sessionKey.Trim().Equals(""))
+        {
+            Session["sessionkey"] = sessionKey.Trim();
+        }
 
         if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
             sessionKey = Session["sessionkey"].ToString().Trim();
         }
+
         openId = MiniUsers.CheckSessionKey(sessionKey);
 
         currentUser = new MiniUsers(openId);
-        
+
         pass = new OnlineSkiPass(code);
         order = pass.associateOnlineOrder;
         detail = pass.associateOnlineOrderDetail;
         p = new Product(detail.productId);
         if (!openId.Trim().Equals(pass.owner.OpenId.Trim()))
             Response.End();
-        
+
     }
 </script>
 

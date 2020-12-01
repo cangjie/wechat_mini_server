@@ -30,17 +30,23 @@
             Response.Redirect("../authorize.aspx?callback=" + currentPageUrl, true);
         }
         */
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hsuqJBh+SCS3Mw1tiXxyNA==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
+
+        if (!sessionKey.Trim().Equals(""))
+        {
+            Session["sessionkey"] = sessionKey.Trim();
+        }
 
         if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
             sessionKey = Session["sessionkey"].ToString().Trim();
         }
 
+
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
         currentUser = new MiniUsers(openId);
-        
+
         passArr = OnlineSkiPass.GetOnlieSkiPassByOwnerOpenId(openId);
 
     }
