@@ -42,13 +42,18 @@
             sessionKey = Session["sessionkey"].ToString().Trim();
         }
 
+        try
+        {
+            string openId = MiniUsers.CheckSessionKey(sessionKey);
 
-        string openId = MiniUsers.CheckSessionKey(sessionKey);
+            currentUser = new MiniUsers(openId);
 
-        currentUser = new MiniUsers(openId);
-
-        passArr = OnlineSkiPass.GetOnlieSkiPassByOwnerOpenId(openId);
-
+            passArr = OnlineSkiPass.GetOnlieSkiPassByOwnerOpenId(openId);
+        }
+        catch
+        {
+            Response.End();
+        }
     }
 </script>
 
