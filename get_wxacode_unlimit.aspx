@@ -12,6 +12,7 @@
 
         string page = Util.GetSafeRequestValue(Request, "page", "pages/index/index");
         string scene = Util.GetSafeRequestValue(Request, "scene", "id=1234");
+        scene = Server.UrlDecode(scene);
         string json = "{\"page\": \"" + page.Trim() + "\",  \"scene\": \"" + scene.Trim() + "\"}";
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(codeUrl);
         req.Method = "post";

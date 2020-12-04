@@ -8,11 +8,30 @@ using System.Data;
 /// </summary>
 public class EquipMaintainRequestInshop
 {
+    public DataRow _fields;
+
     public EquipMaintainRequestInshop(int id)
     {
         //
         // TODO: 在此处添加构造函数逻辑
         //
+        DataTable dt = DBHelper.GetDataTable(" select * from maintain_in_shop_request where [id] = " + id.ToString());
+        if (dt.Rows.Count == 0)
+        {
+            throw new Exception("Not found.");
+        }
+        else
+        {
+            _fields = dt.Rows[0];
+        }
+    }
+
+    public string OwnerOpenId
+    {
+        get
+        {
+            return _fields["open_id"].ToString().Trim();
+        }
     }
 
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
