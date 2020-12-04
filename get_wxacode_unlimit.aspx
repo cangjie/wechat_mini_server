@@ -7,7 +7,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string token = "39_2xtxAYuEMcuEx8frAweTFZUZAPTefw7Cc-p954k2CWQdkQRxiyAhIp0P9if6ZTXne1MvAcnkueeJv0S_d6urrS3jGlHsra3OcZuJuPyF4Ti30S4_2TXwfwAlSraz-bexfMfpk5vbJ-Lfz_GnZZLjAJALLX";//Util.GetToken();
-        //token = Util.GetToken();
+        token = Util.GetToken();
         string codeUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 
         string page = Util.GetSafeRequestValue(Request, "page", "pages/index/index");
