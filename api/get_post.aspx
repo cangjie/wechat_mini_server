@@ -5,6 +5,13 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         Stream s = Request.InputStream;
-        Response.Write((new StreamReader(s)).ReadToEnd().Trim());
+        string json = (new StreamReader(s)).ReadToEnd().Trim();
+        json = "{\"status\": 0, \"content\": { \"txt\": \"aa\" }}";
+        Dictionary<string, object> equipInfo = Util.GetObjectFromJsonByKey(json, "content");   //.GetObjectArrayFromJsonByKey(json, "content");
+        foreach (string k in equipInfo.Keys)
+        { 
+        
+        }
+
     }
 </script>
