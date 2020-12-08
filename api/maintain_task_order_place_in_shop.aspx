@@ -133,7 +133,7 @@
                     string name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
                     string gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
                     int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
-                    int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "id").ToString().Trim());
+                    int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
                     string more = "";
                     try
                     {
@@ -180,7 +180,7 @@
                         (int)additionalFee, memo, pickDate.Date, productId, openId.Trim());
                     if (r == 1)
                     { 
-                    
+                        
                     }
 
                 }
