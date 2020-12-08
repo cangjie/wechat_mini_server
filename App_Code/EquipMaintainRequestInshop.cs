@@ -34,28 +34,94 @@ public class EquipMaintainRequestInshop
         }
     }
 
-    public int PlaceOrder(string operOpenId, int productId)
+    public int ProductId
     {
-        OnlineOrderDetail detail = new OnlineOrderDetail();
-        Product p = new Product(productId);
-        detail.productId = int.Parse(p._fields["id"].ToString());
-        detail.productName = p._fields["name"].ToString();
-        detail.price = double.Parse(p._fields["sale_price"].ToString());
-        detail.count = 1;
+        get
+        {
+            return int.Parse(_fields["confirmed_product_id"].ToString());
+        }
+    }
 
-        OnlineOrder newOrder = new OnlineOrder();
-        newOrder.AddADetail(detail);
-        newOrder.Type = p._fields["type"].ToString();
-        newOrder.shop = p._fields["shop"].ToString();
-        int orderId = newOrder.Place(_fields["open_id"].ToString().Trim());
+    public int AddtionalFee
+    {
+        get
+        {
+            return int.Parse(_fields["confirmed_additional_fee"].ToString());
+        }
+    }
 
-        DBHelper.UpdateData("maintain_in_shop_request", new string[,] { { "service_open_id", "varchar", operOpenId.Trim() }, {"order_id", "int", orderId.ToString() } },
-            new string[,] { {"id", "int", _fields["id"].ToString() } }, Util.conStr);
+    public int AddtionalFeeProductId
+    {
+        get
+        {
+            return 146;
+        }
+    }
 
-        return orderId;
+    public string ServiceOpenId
+    {
+        get
+        {
+            return _fields["service_open_id"].ToString().Trim();
+        }
     }
 
     
+
+    public int Confirm(string type, string brand, string serial, string scale, string year, string cell, string name, string gender,
+        bool edge, int degree, bool candle, string more, int additionalFee, string memo, DateTime pickDate, int productId, string serviceOpenId)
+    {
+        return DBHelper.UpdateData("maintain_in_shop_request", new string[,] {
+            {"confirmed_equip_type", "varchar", type.Trim() },
+            {"confirmed_brand", "varchar", brand.Trim() },
+            {"confirmed_serial", "varchar", serial.Trim() },
+            {"confirmed_scale", "varchar", scale.Trim() },
+            {"confirmed_year", "varchar", year.Trim() },
+            {"confirmed_edge", "int", edge?"1":"0" },
+            {"confirmed_degree", "int", degree.ToString() },
+            {"confirmed_candle", "int", candle?"1":"0" },
+            {"confirmed_more", "varchar", more.Trim() },
+            {"confirmed_memo", "varchar", memo.Trim() },
+            {"confirmed_pick_date", "datetime", pickDate.ToShortDateString() },
+            {"confirmed_additional_fee", "int", additionalFee.ToString()},
+            {"confirmed_cell", "varchar", cell.Trim() },
+            {"confirmed_name", "varchar", name.Trim() },
+            {"confirmed_gender", "varchar", gender.Trim() },
+            {"service_open_id", "varchar", serviceOpenId.Trim() },
+            {"confirmed_product_id", "int", productId.ToString() },
+        }, new string[,] { {"id", "int", _fields["id"].ToString() } }, Util.conStr.Trim());
+    }
+
+    public static int PlaceOrder(int id)
+    {
+        EquipMaintainRequestInshop request = new EquipMaintainRequestInshop(id);
+        if (request.ProductId == 0 && request.AddtionalFee == 0)
+        {
+            return 0;
+        }
+        OnlineOrder newOrder = new OnlineOrder();
+        if (request.ProductId != 0)
+        {
+            OnlineOrderDetail detail = new OnlineOrderDetail();
+            Product p = new Product(request.ProductId);
+            detail.productId = int.Parse(p._fields["id"].ToString());
+            detail.productName = p._fields["name"].ToString();
+            detail.price = double.Parse(p._fields["sale_price"].ToString());
+            detail.count = 1;
+            newOrder.AddADetail(detail);
+        }
+        if (request.AddtionalFee != 0)
+        {
+            OnlineOrderDetail detail = new OnlineOrderDetail();
+            Product p = new Product(request.ProductId);
+            detail.productId = int.Parse(p._fields["id"].ToString());
+            detail.productName = p._fields["name"].ToString();
+            detail.price = double.Parse(p._fields["sale_price"].ToString());
+            detail.count = (int)(request.AddtionalFee/p.SalePrice);
+            newOrder.AddADetail(detail);
+        }
+        return newOrder.Place(request.ServiceOpenId.Trim());
+    }
 
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
     {

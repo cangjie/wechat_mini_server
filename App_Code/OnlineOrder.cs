@@ -40,10 +40,27 @@ public class OnlineOrder
             MiniUsers user = new MiniUsers(openId.Trim());
             if (user != null)
             {
+                string name = "小程序用户";
+                try
+                {
+                    MiniUsers miniUser = new MiniUsers(openId.Trim());
+                    if (!miniUser._fields["nick"].ToString().Trim().Equals(""))
+                    {
+                        name = miniUser._fields["nick"].ToString().Trim();
+                    }
+                    if (!miniUser._fields["real_name"].ToString().Trim().Equals(""))
+                    { 
+                        name = miniUser._fields["real_name"].ToString().Trim();
+                    }
+                }
+                catch
+                { 
+                
+                }
                 string[,] insertParam = { {"type", "varchar", Type.Trim() },
                     {"open_id", "varchar", openId.Trim() },
                     {"cell_number", "varchar", user._fields["cell_number"].ToString().Trim() },
-                    {"name", "varchar", "小程序用户" },
+                    {"name", "varchar", name.Trim() },
                     {"pay_method", "varchar", PayMethod.Trim() },
                     {"order_price", "float", OrderPrice.ToString() },
                     {"order_real_pay_price", "float", OrderPrice.ToString() },

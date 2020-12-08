@@ -121,9 +121,78 @@
             productFee = product.SalePrice;
             if (action.Trim().Equals("placeorder"))
             {
+                try
+                {
+                    Dictionary<string, object> equipInfo = Util.GetObjectFromJsonByKey(json, "equipInfo");
+                    string type = equipInfo["type"].ToString().Trim();
+                    string brand = equipInfo["brand"].ToString().Trim();
+                    string serial = equipInfo["serial"].ToString().Trim();
+                    string year = equipInfo["year"].ToString().Trim();
+                    string scale = equipInfo["scale"].ToString().Trim();
+                    string cell = Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    string name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    string gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
+                    int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "id").ToString().Trim());
+                    string more = "";
+                    try
+                    {
+                        more = Util.GetSimpleJsonValueByKey(json, "repair_moore").Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string memo = "";
+                    try
+                    {
+                        memo = Util.GetSimpleJsonValueByKey(json, "memo").Trim();
+                    }
+                    catch
+                    {
+
+                    }
+
+                    EquipMaintainRequestInshop req = new EquipMaintainRequestInshop(id);
+                    MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
+                    if (name.Trim().Equals(""))
+                    {
+
+
+                        if (!customer.Nick.Trim().Equals(""))
+                        {
+                            name = customer.Nick.Trim();
+                        }
+                        if (!customer.RealName.Trim().Equals(""))
+                        {
+                            name = customer.RealName.Trim();
+                        }
+                    }
+                    if (cell.Trim().Equals(""))
+                    {
+                        cell = customer.CellNumber.Trim();
+                    }
+                    if (gender.Trim().Equals(""))
+                    {
+                        gender = customer._fields["gender"].ToString().Trim();
+                    }
+                    int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
+                        (int)additionalFee, memo, pickDate.Date, productId, openId.Trim());
+                    if (r == 1)
+                    { 
+                    
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+
                 int requestId = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
                 EquipMaintainRequestInshop request = new EquipMaintainRequestInshop(requestId);
-                orderId = request.PlaceOrder(openId, productId);
+                //request.Confirm()
             }
         }
 
