@@ -113,7 +113,7 @@ public class EquipMaintainRequestInshop
         if (request.AddtionalFee != 0)
         {
             OnlineOrderDetail detail = new OnlineOrderDetail();
-            Product p = new Product(request.ProductId);
+            Product p = new Product(request.AddtionalFeeProductId);
             detail.productId = int.Parse(p._fields["id"].ToString());
             detail.productName = p._fields["name"].ToString();
             detail.price = double.Parse(p._fields["sale_price"].ToString());
