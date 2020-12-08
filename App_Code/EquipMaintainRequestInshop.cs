@@ -34,6 +34,29 @@ public class EquipMaintainRequestInshop
         }
     }
 
+    public int PlaceOrder(string operOpenId, int productId)
+    {
+        OnlineOrderDetail detail = new OnlineOrderDetail();
+        Product p = new Product(productId);
+        detail.productId = int.Parse(p._fields["id"].ToString());
+        detail.productName = p._fields["name"].ToString();
+        detail.price = double.Parse(p._fields["sale_price"].ToString());
+        detail.count = 1;
+
+        OnlineOrder newOrder = new OnlineOrder();
+        newOrder.AddADetail(detail);
+        newOrder.Type = p._fields["type"].ToString();
+        newOrder.shop = p._fields["shop"].ToString();
+        int orderId = newOrder.Place(_fields["open_id"].ToString().Trim());
+
+        DBHelper.UpdateData("maintain_in_shop_request", new string[,] { { "service_open_id", "varchar", operOpenId.Trim() }, {"order_id", "int", orderId.ToString() } },
+            new string[,] { {"id", "int", _fields["id"].ToString() } }, Util.conStr);
+
+        return orderId;
+    }
+
+    
+
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
     {
         int i = DBHelper.InsertData("maintain_in_shop_request", new string[,] {

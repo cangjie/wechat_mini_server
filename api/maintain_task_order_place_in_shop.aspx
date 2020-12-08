@@ -11,6 +11,7 @@
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
+
         MiniUsers user = new MiniUsers(openId);
         if (!user.role.Trim().Equals("staff"))
         {
@@ -111,18 +112,25 @@
             default:
                 break;
         }
+        int orderId = 0;
 
         double productFee = 0;
         if (productId > 0)
-        { 
+        {
             Product product = new Product(productId);
             productFee = product.SalePrice;
+            if (action.Trim().Equals("placeorder"))
+            {
+                int requestId = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
+                EquipMaintainRequestInshop request = new EquipMaintainRequestInshop(requestId);
+                orderId = request.PlaceOrder(openId, productId);
+            }
         }
-        
+
 
         Response.Write("{\"status\": 0, \"product_fee\": " + Math.Round(productFee, 2).ToString() + ", \"additional_fee\": "
             + Math.Round(additionalFee, 2).ToString()+ ", \"total_fee\": " + Math.Round(productFee + additionalFee, 2).ToString()
-            + ", \"request_detail\": " + json + " }");
+            + ", \"product_id\": " + productId.ToString() + ", \"order_id\": " + orderId.ToString() + ", \"request_detail\": " + json + " }");
 
 
 
