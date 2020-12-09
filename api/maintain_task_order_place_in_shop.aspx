@@ -9,6 +9,9 @@
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
+        File.AppendAllText(Server.MapPath("test_json.txt"), json);
+
+
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
 

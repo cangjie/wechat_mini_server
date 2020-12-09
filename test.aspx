@@ -6,8 +6,9 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        EquipMaintainTaskDetail detail = new EquipMaintainTaskDetail(7);
-        detail.SetStatus("已开始", "test");
+        double a = 0.02;
+        double b = 0.01;
+        Response.Write((int)(a / b));
     }
 </script>
 
@@ -18,7 +19,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <%= (new EquipMaintainTask(2)).Status.Trim() %>
+         
         </div>
     </form>
 </body>
