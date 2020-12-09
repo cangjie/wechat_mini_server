@@ -83,7 +83,7 @@ public class EquipMaintainRequestInshop
             {"confirmed_more", "varchar", more.Trim() },
             {"confirmed_memo", "varchar", memo.Trim() },
             {"confirmed_pick_date", "datetime", pickDate.ToShortDateString() },
-            {"confirmed_additional_fee", "int", additionalFee.ToString()},
+            {"confirmed_additional_fee", "float", additionalFee.ToString()},
             {"confirmed_cell", "varchar", cell.Trim() },
             {"confirmed_name", "varchar", name.Trim() },
             {"confirmed_gender", "varchar", gender.Trim() },
