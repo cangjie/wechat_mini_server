@@ -4,12 +4,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "GGJfvofI3+BPhgCuO80zTQ==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
         string action = Util.GetSafeRequestValue(Request, "action", "placeorder");
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
-        File.WriteAllText(Server.MapPath("test_json.txt"), json);
+        //File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
         //json = "{\"request_id\":\"20\",\"cell_number\":\"13501177897\",\"real_name\":\"\",\"gender\":\"男\",\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"serial\":\"RC4Booster\",\"scale\":\"165\",\"year\":\"18-19\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
 
