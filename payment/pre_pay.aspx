@@ -87,8 +87,15 @@
 
         XmlDocument xmlPrepay = new XmlDocument();
         xmlPrepay.LoadXml(prepayXml);
-        prepayId = xmlPrepay.SelectSingleNode("//xml/prepay_id").InnerText.Trim();
-
+        try
+        {
+            prepayId = xmlPrepay.SelectSingleNode("//xml/prepay_id").InnerText.Trim();
+        }
+        catch
+        {
+            Response.Write(prepayXml.Trim());
+            Response.End();
+        }
         timeStampStr = Util.GetTimeStamp();
         nonceString = Util.GetNonceString(32);
 
@@ -119,7 +126,7 @@
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
         sign = Util.GetMd5Sign(s, key);
 
-        Response.Write("{\"status\": 0, \"order_id\": \"" + orderId.ToString() + "\", \"prepay_id\": \"" + prepayId.Trim() + "\", \"timestamp\": \"" 
+        Response.Write("{\"status\": 0, \"order_id\": \"" + orderId.ToString() + "\", \"prepay_id\": \"" + prepayId.Trim() + "\", \"timestamp\": \""
             + timeStampStr + "\", \"nonce\": \"" + nonceString + "\", \"sign\": \"" + sign.Trim() + "\"  }");
     }
 </script>
