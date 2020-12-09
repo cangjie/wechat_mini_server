@@ -5,7 +5,6 @@
     {
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9150"));
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
-
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         MiniUsers user = new MiniUsers(openId);
         OnlineOrder order = new OnlineOrder(orderId);

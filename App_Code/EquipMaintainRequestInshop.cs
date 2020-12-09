@@ -42,11 +42,11 @@ public class EquipMaintainRequestInshop
         }
     }
 
-    public int AddtionalFee
+    public double AddtionalFee
     {
         get
         {
-            return int.Parse(_fields["confirmed_additional_fee"].ToString());
+            return double.Parse(_fields["confirmed_additional_fee"].ToString());
         }
     }
 
@@ -69,7 +69,7 @@ public class EquipMaintainRequestInshop
     
 
     public int Confirm(string type, string brand, string serial, string scale, string year, string cell, string name, string gender,
-        bool edge, int degree, bool candle, string more, int additionalFee, string memo, DateTime pickDate, int productId, string serviceOpenId)
+        bool edge, int degree, bool candle, string more, double additionalFee, string memo, DateTime pickDate, int productId, string serviceOpenId)
     {
         return DBHelper.UpdateData("maintain_in_shop_request", new string[,] {
             {"confirmed_equip_type", "varchar", type.Trim() },

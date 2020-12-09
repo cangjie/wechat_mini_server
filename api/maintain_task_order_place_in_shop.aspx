@@ -177,7 +177,7 @@
                         gender = customer._fields["gender"].ToString().Trim();
                     }
                     int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
-                        (int)additionalFee, memo, pickDate.Date, productId, openId.Trim());
+                        additionalFee, memo, pickDate.Date, productId, openId.Trim());
                     if (r == 1)
                     {
                         orderId = EquipMaintainRequestInshop.PlaceOrder(id);
