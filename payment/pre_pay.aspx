@@ -37,7 +37,7 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "notify_url", "");
-        n.InnerText = Request.Url.ToString().Trim().Replace("payment.aspx", "callback.aspx").Trim();
+        n.InnerText = Request.Url.ToString().Trim().Replace("pre_pay.aspx", "callback.aspx").Trim();
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "openid", "");

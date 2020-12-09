@@ -100,6 +100,8 @@ public class EquipMaintainRequestInshop
             return 0;
         }
         OnlineOrder newOrder = new OnlineOrder();
+        
+        
         if (request.ProductId != 0)
         {
             OnlineOrderDetail detail = new OnlineOrderDetail();
@@ -108,6 +110,8 @@ public class EquipMaintainRequestInshop
             detail.productName = p._fields["name"].ToString();
             detail.price = double.Parse(p._fields["sale_price"].ToString());
             detail.count = 1;
+            newOrder.Type = p.Type.Trim();
+            newOrder.shop = p._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
         if (request.AddtionalFee != 0)
@@ -118,6 +122,8 @@ public class EquipMaintainRequestInshop
             detail.productName = p._fields["name"].ToString();
             detail.price = double.Parse(p._fields["sale_price"].ToString());
             detail.count = (int)(request.AddtionalFee/p.SalePrice);
+            newOrder.Type = p.Type.Trim();
+            newOrder.shop = p._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
         return newOrder.Place(request.ServiceOpenId.Trim());
