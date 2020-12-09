@@ -17,7 +17,22 @@
             {
                 try
                 {
-                    int orderId = int.Parse(xmlD.SelectSingleNode("//xml/product_id").InnerText.Trim());
+                    int orderId = 0;
+                    try
+                    {
+                        orderId = int.Parse(xmlD.SelectSingleNode("//xml/product_id").InnerText.Trim());
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            orderId = int.Parse(xmlD.SelectSingleNode("//xml/out_trade_no").InnerText.Trim());
+                        }
+                        catch
+                        { 
+                        
+                        }
+                    }
                     OnlineOrder onlineOrder = new OnlineOrder(orderId);
                     if (onlineOrder._fields["pay_state"].ToString().Trim().Equals("0"))
                     {

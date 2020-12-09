@@ -111,7 +111,7 @@ public class EquipMaintainRequestInshop
             detail.price = double.Parse(p._fields["sale_price"].ToString());
             detail.count = 1;
             newOrder.Type = p.Type.Trim();
-            newOrder.shop = p._fields["shop"].ToString().Trim();
+            newOrder.shop = request._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
         if (request.AddtionalFee != 0)
@@ -123,7 +123,7 @@ public class EquipMaintainRequestInshop
             detail.price = double.Parse(p._fields["sale_price"].ToString());
             detail.count = (int)(request.AddtionalFee/p.SalePrice);
             newOrder.Type = p.Type.Trim();
-            newOrder.shop = p._fields["shop"].ToString().Trim();
+            newOrder.shop = request._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
         return newOrder.Place(request.ServiceOpenId.Trim());
