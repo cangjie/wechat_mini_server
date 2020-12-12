@@ -126,7 +126,7 @@ public class EquipMaintainRequestInshop
             newOrder.shop = request._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
-        return newOrder.Place(request.ServiceOpenId.Trim());
+        return newOrder.Place(request.OwnerOpenId.Trim());
     }
 
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
