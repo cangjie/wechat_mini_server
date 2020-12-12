@@ -165,8 +165,6 @@
                     MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
                     if (name.Trim().Equals(""))
                     {
-
-
                         if (!customer.Nick.Trim().Equals(""))
                         {
                             name = customer.Nick.Trim();
