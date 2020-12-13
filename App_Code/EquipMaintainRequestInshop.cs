@@ -126,7 +126,10 @@ public class EquipMaintainRequestInshop
             newOrder.shop = request._fields["shop"].ToString().Trim();
             newOrder.AddADetail(detail);
         }
-        return newOrder.Place(request.OwnerOpenId.Trim());
+        int orderId = newOrder.Place(request.OwnerOpenId.Trim());
+        DBHelper.UpdateData("maintain_in_shop_request", new string[,] { {"order_id", "int", orderId.ToString() } },
+            new string[,] { {"id","int", id.ToString() } }, Util.conStr);
+        return orderId;
     }
 
     public static int CreateNew(string openId, string shop, string equipType, string brand, string scale, bool edge, bool candle, bool repair, DateTime pickDate)
