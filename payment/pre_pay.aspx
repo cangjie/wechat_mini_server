@@ -9,10 +9,13 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9555"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9711"));
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
+        appId = "wxf91253fd1c38d24e";
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        mch_id = "1517744411";
         string key = "abcdefghijklmnopqrstuvwxyz123456";
+        key = "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0";
         string nonce_str = Util.GetNonceString(32);
 
 
@@ -83,7 +86,7 @@
         n.InnerText = s.Trim();
         rootXmlNode.AppendChild(n);
 
-        string prepayXml = Util.GetWebContent("https://api.mch.weixin.qq.com/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
+        string prepayXml = Util.GetWebContent("https://payapi.mch.weixin.semoor.cn/4.0/pay/unifiedorder", "post", xmlD.InnerXml.Trim(), "raw");
 
         XmlDocument xmlPrepay = new XmlDocument();
         xmlPrepay.LoadXml(prepayXml);
