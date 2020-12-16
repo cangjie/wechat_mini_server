@@ -9,7 +9,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9745"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9832"));
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         //appId = "wxf91253fd1c38d24e";
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
@@ -87,6 +87,13 @@
 
         XmlDocument xmlPrepay = new XmlDocument();
         xmlPrepay.LoadXml(prepayXml);
+        string jsapi = xmlPrepay.SelectSingleNode("//xml/jsapi").InnerText.Trim();
+        prepayId = Util.GetSimpleJsonValueByKey(jsapi, "package").Trim().Split('=')[1].Trim();
+        nonceString = Util.GetSimpleJsonValueByKey(jsapi, "nonceStr").Trim();
+        timeStampStr = Util.GetSimpleJsonValueByKey(jsapi, "timeStamp").Trim();
+        sign = Util.GetSimpleJsonValueByKey(jsapi, "paySign").Trim();
+
+        /*
         try
         {
             prepayId = xmlPrepay.SelectSingleNode("//xml/prepay_id").InnerText.Trim();
@@ -125,7 +132,7 @@
         s = Util.ConverXmlDocumentToStringPair(xmlPayClient);
         //s = Util.GetMd5Sign(s, "jihuowangluoactivenetworkjarrodc");
         sign = Util.GetMd5Sign(s, key);
-
+        */
         Response.Write("{\"status\": 0, \"order_id\": \"" + orderId.ToString() + "\", \"prepay_id\": \"" + prepayId.Trim() + "\", \"timestamp\": \""
             + timeStampStr + "\", \"nonce\": \"" + nonceString + "\", \"sign\": \"" + sign.Trim() + "\"  }");
     }
