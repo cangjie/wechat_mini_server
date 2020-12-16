@@ -18,10 +18,7 @@
         key = "ubsyrgj6wy1fn8qbyjx68lgmvli6eod0";
         string nonce_str = Util.GetNonceString(32);
 
-
-
         OnlineOrder order = new OnlineOrder(orderId);
-
         XmlDocument xmlD = new XmlDocument();
         xmlD.LoadXml("<xml/>");
         XmlNode rootXmlNode = xmlD.SelectSingleNode("//xml");
