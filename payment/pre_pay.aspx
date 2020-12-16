@@ -9,7 +9,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9711"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9745"));
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         //appId = "wxf91253fd1c38d24e";
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
@@ -56,7 +56,7 @@
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "trade_type", "");
-        n.InnerText = "JSAPI";
+        n.InnerText = "MINIAPP";
         rootXmlNode.AppendChild(n);
 
         n = xmlD.CreateNode(XmlNodeType.Element, "out_trade_no", "");
