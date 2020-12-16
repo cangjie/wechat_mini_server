@@ -11,7 +11,7 @@
     {
         int orderId = int.Parse(Util.GetSafeRequestValue(Request, "orderid", "9711"));
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
-        appId = "wxf91253fd1c38d24e";
+        //appId = "wxf91253fd1c38d24e";
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
         mch_id = "1517744411";
         string key = "abcdefghijklmnopqrstuvwxyz123456";
