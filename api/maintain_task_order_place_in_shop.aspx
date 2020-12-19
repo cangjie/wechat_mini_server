@@ -11,7 +11,7 @@
 
         //File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
-        //json = "{\"request_id\":\"20\",\"cell_number\":\"13501177897\",\"real_name\":\"\",\"gender\":\"男\",\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"serial\":\"RC4Booster\",\"scale\":\"165\",\"year\":\"18-19\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
+        //json = "{\"request_id\":\"63\",\"cell_number\":\"13501177897\",\"real_name\":\"\",\"gender\":\"男\",\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"serial\":\"\",\"scale\":\"165\",\"year\":\"\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
@@ -145,7 +145,7 @@
                     string more = "";
                     try
                     {
-                        more = Util.GetSimpleJsonValueByKey(json, "repair_moore").Trim();
+                        more = Util.GetSimpleJsonValueByKey(json, "repair_more").Trim();
                     }
                     catch
                     {
