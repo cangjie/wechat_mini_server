@@ -188,6 +188,10 @@
                     {
                         orderId = EquipMaintainRequestInshop.PlaceOrder(id);
                     }
+                    else
+                    {
+                        orderId = -1;
+                    }
 
                 }
                 catch
