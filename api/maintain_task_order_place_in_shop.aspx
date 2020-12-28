@@ -11,8 +11,7 @@
 
         File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
-        //json = "{\"request_id\":\"83\", \"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"scale\":\"165\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
-
+        json = "{\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Armada/阿玛达\"},\"shop\":\"万龙\",\"degree\":\"89\",\"edge\":\"1\",\"candle\":0,\"pick_date\":\"2020-12-29\",\"repair_more\":\"雪杖等附件寄存\",\"additional_fee\":\"20\",\"request_id\":85}";
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
 
@@ -152,7 +151,15 @@
                     {
 
                     }
-                    string scale = equipInfo["scale"].ToString().Trim();
+                    string scale = "";// equipInfo["scale"].ToString().Trim();
+                    try
+                    {
+                        scale = equipInfo["scale"].ToString().Trim();
+                    }
+                    catch
+                    { 
+                    
+                    }
                     string cell = ""; //Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
                     try
                     {
@@ -226,8 +233,8 @@
                         }
                     }
                     catch
-                    { 
-                    
+                    {
+
                     }
                     int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
                         additionalFee, memo, pickDate.Date, productId, openId.Trim());
