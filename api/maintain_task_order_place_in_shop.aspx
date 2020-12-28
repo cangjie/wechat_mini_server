@@ -9,7 +9,7 @@
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
-        //File.WriteAllText(Server.MapPath("test_json.txt"), json);
+        File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
         //json = "{\"request_id\":\"83\", \"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"scale\":\"165\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
 
