@@ -4,8 +4,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
-        string action = Util.GetSafeRequestValue(Request, "action", "placeorder");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "Y2ypp1tGFvSMeY+Ut9qWNQ==");
+        string action = Util.GetSafeRequestValue(Request, "action", "view");
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
