@@ -135,11 +135,51 @@
                     string type = equipInfo["type"].ToString().Trim();
                     string brand = equipInfo["brand"].ToString().Trim();
                     string serial = "";// equipInfo["serial"].ToString().Trim();
+                    try
+                    {
+                        serial = equipInfo["serial"].ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
                     string year = ""; //equipInfo["year"].ToString().Trim();
+                    try
+                    {
+                        year = equipInfo["year"].ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
                     string scale = equipInfo["scale"].ToString().Trim();
                     string cell = ""; //Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    try
+                    {
+                        cell = Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
                     string name = "";// Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    try
+                    {
+                        name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
                     string gender = "";// Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    try
+                    {
+                        gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    }
+                    catch
+                    { 
+                    
+                    }
                     int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
                     int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
                     string more = "";
