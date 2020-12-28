@@ -5,13 +5,13 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "Y2ypp1tGFvSMeY+Ut9qWNQ==");
-        string action = Util.GetSafeRequestValue(Request, "action", "view");
+        string action = Util.GetSafeRequestValue(Request, "action", "placeorder");
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
         //File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
-        //json = "{\"request_id\":\"63\",\"cell_number\":\"13501177897\",\"real_name\":\"\",\"gender\":\"男\",\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"serial\":\"\",\"scale\":\"165\",\"year\":\"\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
+        //json = "{\"request_id\":\"83\", \"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"scale\":\"165\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
@@ -177,8 +177,8 @@
                         gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
                     }
                     catch
-                    { 
-                    
+                    {
+
                     }
                     int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
                     int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
@@ -202,25 +202,32 @@
                     }
 
                     EquipMaintainRequestInshop req = new EquipMaintainRequestInshop(id);
-                    MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
-                    if (name.Trim().Equals(""))
+                    try
                     {
-                        if (!customer.Nick.Trim().Equals(""))
+                        MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
+                        if (name.Trim().Equals(""))
                         {
-                            name = customer.Nick.Trim();
+                            if (!customer.Nick.Trim().Equals(""))
+                            {
+                                name = customer.Nick.Trim();
+                            }
+                            if (!customer.RealName.Trim().Equals(""))
+                            {
+                                name = customer.RealName.Trim();
+                            }
                         }
-                        if (!customer.RealName.Trim().Equals(""))
+                        if (cell.Trim().Equals(""))
                         {
-                            name = customer.RealName.Trim();
+                            cell = customer.CellNumber.Trim();
+                        }
+                        if (gender.Trim().Equals(""))
+                        {
+                            gender = customer._fields["gender"].ToString().Trim();
                         }
                     }
-                    if (cell.Trim().Equals(""))
-                    {
-                        cell = customer.CellNumber.Trim();
-                    }
-                    if (gender.Trim().Equals(""))
-                    {
-                        gender = customer._fields["gender"].ToString().Trim();
+                    catch
+                    { 
+                    
                     }
                     int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
                         additionalFee, memo, pickDate.Date, productId, openId.Trim());
