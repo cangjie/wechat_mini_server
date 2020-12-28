@@ -134,12 +134,12 @@
                     Dictionary<string, object> equipInfo = Util.GetObjectFromJsonByKey(json, "equipInfo");
                     string type = equipInfo["type"].ToString().Trim();
                     string brand = equipInfo["brand"].ToString().Trim();
-                    string serial = equipInfo["serial"].ToString().Trim();
-                    string year = equipInfo["year"].ToString().Trim();
+                    string serial = "";// equipInfo["serial"].ToString().Trim();
+                    string year = ""; //equipInfo["year"].ToString().Trim();
                     string scale = equipInfo["scale"].ToString().Trim();
-                    string cell = Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
-                    string name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
-                    string gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    string cell = ""; //Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    string name = "";// Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    string gender = "";// Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
                     int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
                     int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
                     string more = "";
