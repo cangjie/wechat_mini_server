@@ -26,9 +26,20 @@
         string[,] paramArr = new string[keyArr.Length, 3];
         for (int i = 0; i < keyArr.Length; i++)
         {
-            paramArr[i, 0] = keyArr[i].Trim();
-            paramArr[i, 1] = "varchar";
-            paramArr[i, 3] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
+            switch (keyArr[i].Trim())
+            {
+                case "open_id":
+                    paramArr[i, 0] = keyArr[i].Trim();
+                    paramArr[i, 1] = "varchar";
+                    paramArr[i, 3] = openId;
+                    break;
+                default:
+                    paramArr[i, 0] = keyArr[i].Trim();
+                    paramArr[i, 1] = "varchar";
+                    paramArr[i, 3] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
+                    break;
+            }
+            
         }
         int j = DBHelper.UpdateData("maintain_in_shop_request", paramArr, new string[,] { { "id", "int", id.ToString() } }, Util.conStr);
 
