@@ -6,7 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        EquipMaintainRequestInshop.PlaceOrder(63);
+        //EquipMaintainRequestInshop.PlaceOrder(63);
+        Util.GetJsonKeys("{\"status\": 0, \"error_message\": \"aa\"}");
     }
 </script>
 
