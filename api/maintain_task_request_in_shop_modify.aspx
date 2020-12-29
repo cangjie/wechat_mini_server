@@ -31,12 +31,12 @@
                 case "open_id":
                     paramArr[i, 0] = keyArr[i].Trim();
                     paramArr[i, 1] = "varchar";
-                    paramArr[i, 3] = openId;
+                    paramArr[i, 2] = openId;
                     break;
                 default:
                     paramArr[i, 0] = keyArr[i].Trim();
                     paramArr[i, 1] = "varchar";
-                    paramArr[i, 3] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
+                    paramArr[i, 2] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
                     break;
             }
             
