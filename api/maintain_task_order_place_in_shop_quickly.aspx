@@ -4,7 +4,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "161"));
+        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "173"));
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "Ln8FP6bsnkPECcYKIiRA3g==");
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
@@ -17,6 +17,6 @@
         }
 
         int orderId = EquipMaintainRequestInshop.PlaceOrder(id);
-        Response.Write("{\"status\": 0, \"order_id\": " + openId.ToString() + " }");
+        Response.Write("{\"status\": 0, \"order_id\": " + orderId.ToString() + " }");
     }
 </script>
