@@ -6,9 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        double a = 0.02;
-        double b = 0.01;
-        Response.Write((int)(a / b));
+        //EquipMaintainRequestInshop.PlaceOrder(63);
+        Util.GetJsonKeys("{\"status\": 0, \"error_message\": \"aa\"}");
     }
 </script>
 
