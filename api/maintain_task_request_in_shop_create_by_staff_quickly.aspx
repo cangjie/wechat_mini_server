@@ -26,6 +26,7 @@
         DateTime pPickDate = DateTime.Now.Date.AddDays(1);
         string pShop = "万龙";
         double pAdditionalCharge = 0;
+        int pProductId = 0;
         try
         {
             pShop = Util.GetSimpleJsonValueByKey(json, "shop").Trim();
@@ -115,6 +116,13 @@
         {
 
         }
+        try
+        {
+            pProductId = int.Parse(Util.GetSimpleJsonValueByKey(json, "product_id").Trim());
+        }
+        catch
+        {
+        }
         if (!checkParametersMessage.Trim().Equals(""))
         {
             Response.Write("{\"status\": 1, \"error_message\": \"" + checkParametersMessage + "\"}");
@@ -131,7 +139,8 @@
             {"confirmed_more", "varchar", pMore.Trim() },
             {"confirmed_pick_date", "datetime", pPickDate.ToShortDateString() },
             {"confirmed_memo", "varchar", pMore.Trim() },
-            {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()}
+            {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
+            {"confirmed_product_id", "int", pProductId.ToString()}
         });
         if (i == 1)
         {
