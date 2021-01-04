@@ -11,7 +11,7 @@
 
         File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
-        json = "{\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Armada/阿玛达\"},\"shop\":\"万龙\",\"degree\":\"89\",\"edge\":\"1\",\"candle\":0,\"pick_date\":\"2020-12-29\",\"repair_more\":\"雪杖等附件寄存\",\"additional_fee\":\"20\",\"request_id\":85}";
+        //json = "{\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Armada/阿玛达\"},\"shop\":\"万龙\",\"degree\":\"89\",\"edge\":\"1\",\"candle\":0,\"pick_date\":\"2020-12-29\",\"repair_more\":\"雪杖等附件寄存\",\"additional_fee\":\"20\",\"request_id\":85}";
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
 

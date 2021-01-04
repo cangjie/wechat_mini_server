@@ -25,6 +25,9 @@
         string pMore = "";
         DateTime pPickDate = DateTime.Now.Date.AddDays(1);
         string pShop = "万龙";
+        int pProductId = 0;
+        string pMemo = "";
+
         double pAdditionalCharge = 0;
         int pProductId = 0;
         try
@@ -122,6 +125,15 @@
         }
         catch
         {
+
+        }
+        try
+        {
+            pMemo = Util.GetSimpleJsonValueByKey(json, "memo").Trim();
+        }
+        catch
+        { 
+        
         }
         if (!checkParametersMessage.Trim().Equals(""))
         {
@@ -138,9 +150,9 @@
             {"confirmed_candle", "int", pCandle? "1" : "0" },
             {"confirmed_more", "varchar", pMore.Trim() },
             {"confirmed_pick_date", "datetime", pPickDate.ToShortDateString() },
-            {"confirmed_memo", "varchar", pMore.Trim() },
+            {"confirmed_memo", "varchar", pMemo.Trim() },
             {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
-            {"confirmed_product_id", "int", pProductId.ToString()}
+            {"confirmed_product_id", "int", pProductId.ToString() }
         });
         if (i == 1)
         {
@@ -154,7 +166,7 @@
             Response.Write("{\"status\": 0, \"maintain_in_shop_request_id\": " + newId.ToString() + ", \"input_json\": " + json + " }");
         }
         else
-        { 
+        {
             Response.Write("{\"status\": 1, \"error_message\": \"Insert fail.\", \"input_json\": " + json + "  }");
         }
     }

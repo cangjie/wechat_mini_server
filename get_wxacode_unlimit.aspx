@@ -6,12 +6,12 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string token = "39_2xtxAYuEMcuEx8frAweTFZUZAPTefw7Cc-p954k2CWQdkQRxiyAhIp0P9if6ZTXne1MvAcnkueeJv0S_d6urrS3jGlHsra3OcZuJuPyF4Ti30S4_2TXwfwAlSraz-bexfMfpk5vbJ-Lfz_GnZZLjAJALLX";//Util.GetToken();
+        string token = "40_-vrwPOHUy0_FLETJQT6ohF4qSDa076c3V-803ccoB1YOQapTrTaDrlPthut2PJ_qjSo_CuIvuZD-qKJBle-xk5b36iVF5v2xgObEh3IeVk4XSg_my7855FL_6zyTyJ01WfZBZu9EA28VQMz8QXRdACAAHB";//Util.GetToken();
         token = Util.GetToken();
         string codeUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 
-        string page = Util.GetSafeRequestValue(Request, "page", "pages/index/index");
-        string scene = Util.GetSafeRequestValue(Request, "scene", "id=1234");
+        string page = Util.GetSafeRequestValue(Request, "page", "pages/maintain/in_shop_request_payment/in_shop_request_payment");
+        string scene = Util.GetSafeRequestValue(Request, "scene", "161");
         scene = Server.UrlDecode(scene);
         string json = "{\"page\": \"" + page.Trim() + "\",  \"scene\": \"" + scene.Trim() + "\"}";
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(codeUrl);
