@@ -25,7 +25,7 @@
         string pMore = "";
         DateTime pPickDate = DateTime.Now.Date.AddDays(1);
         string pShop = "万龙";
-        int pProductId = 0;
+        
         string pMemo = "";
 
         double pAdditionalCharge = 0;
