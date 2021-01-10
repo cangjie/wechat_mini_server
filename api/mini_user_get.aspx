@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "x7Adc11XZIhU3dcDHcPNLw==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         string miniOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         MiniUsers user = new MiniUsers(openId);
@@ -14,7 +14,16 @@
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
-        if (!user.role.Trim().Equals("staff") && miniOpenId.Trim().Equals(""))
+
+
+        if (user.role.Trim().Equals("staff"))
+        {
+            if (miniOpenId.Trim().Equals(""))
+            {
+                miniOpenId = openId;
+            }
+        }
+        else
         {
             miniOpenId = openId;
         }
