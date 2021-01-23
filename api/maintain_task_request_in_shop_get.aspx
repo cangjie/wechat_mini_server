@@ -10,7 +10,8 @@
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         MiniUsers user = new MiniUsers(openId);
         EquipMaintainRequestInshop info = new EquipMaintainRequestInshop(id);
-        if (!user.role.Trim().Equals("staff") && !openId.Trim().Equals(info.OwnerOpenId.Trim()))
+        if (!user.role.Trim().Equals("staff") && !openId.Trim().Equals(info.OwnerOpenId.Trim())
+            && !user.OfficialAccountOpenId.Trim().Equals(info.OwnerOpenId))
         {
             Response.Write("{\"status\": 1, \"error_message\": \"Have no right.\"}");
             Response.End();
