@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "x7Adc11XZIhU3dcDHcPNLw==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "5F2tmvvVcJSVx118AkQ/yw==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         string miniOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         MiniUsers user = new MiniUsers(openId);

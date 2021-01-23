@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Data" %>
 <script runat="server">
 
     protected void Page_Load(object sender, EventArgs e)
@@ -39,9 +40,24 @@
                     paramArr[i, 2] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
                     break;
             }
-            
+
         }
         int j = DBHelper.UpdateData("maintain_in_shop_request", paramArr, new string[,] { { "id", "int", id.ToString() } }, Util.conStr);
+
+        try
+        {
+            //DBHelper.UpdateData("users", new string[,] { { "vip_level", "int", "1" }, {"cell_" } })
+            DataTable dtUser = DBHelper.GetDataTable(" select * from users where open_id = '" + request.OwnerOpenId + "' ");
+            if (dtUser.Rows.Count > 0 && dtUser.Rows[0]["cell_number"].ToString().Equals(""))
+            {
+                DBHelper.UpdateData("users", new string[,] { { "vip_level", "int", "1" }, { "cell_number", "varchar", Util.GetSimpleJsonValueByKey(json, "confirmed_cell").Trim() } },
+                    new string[,] { { "open_id", "varchar", request.OwnerOpenId.Trim() } }, Util.conStr);
+            }
+        }
+        catch
+        {
+
+        }
 
         Response.Write("{\"status\": 0, \"result\": " + j.ToString() + ", \"request_json\": " + json.Trim() + " }");
     }
