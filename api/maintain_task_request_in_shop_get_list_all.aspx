@@ -4,6 +4,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        DateTime currentDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "date", DateTime.Now.ToShortDateString()));
+
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "CblxlJGhC0nRQ2gyiK2mTw==");
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
@@ -18,7 +20,8 @@
 
         string sql = "select maintain_in_shop_request.*, pay_state from  order_online"
             + " left join maintain_in_shop_request on order_id = order_online.[id] "
-            + " where maintain_in_shop_request.[id] is not null  and pay_state = 1 order by [id] desc " ;
+            + " where maintain_in_shop_request.[id] is not null  and pay_state = 1 and pay_time >= '" + currentDate.ToShortDateString() 
+            + "' and pay_time < '" + currentDate.AddDays(1).ToShortDateString() + "' order by [id] desc " ;
         DataTable dt = DBHelper.GetDataTable(sql);
         string jsonArray = "";
         foreach (DataRow dr in dt.Rows)
