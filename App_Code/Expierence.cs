@@ -59,7 +59,7 @@ public class Expierence
     {
         DBHelper.InsertData("expierence_list", new string[,] { { "staff_open_id", "varchar", staffOpenId.Trim() },
             {"shop", "varchar", shop.Trim() } });
-        DataTable dt = DBHelper.GetDataTable(" select top 1 * from expierence_list where staff_open_id = '" + staffOpenId.Trim() + "' ");
+        DataTable dt = DBHelper.GetDataTable(" select top 1 * from expierence_list where staff_open_id = '" + staffOpenId.Trim() + "' order by [id] desc ");
         int retId = 0;
         if (dt.Rows.Count > 0)
         {
