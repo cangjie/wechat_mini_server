@@ -11,8 +11,8 @@
         string json = (new StreamReader(s)).ReadToEnd().Trim();
         s.Close();
 
-        Response.Write(json.Trim());
-        Response.End();
+        //Response.Write(json.Trim());
+        //Response.End();
 
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
@@ -42,7 +42,14 @@
                     break;
             }
         }
-        DBHelper.UpdateData("expierence_list", param, new string[,] { { "id", "int", expierenceId.ToString() } }, Util.conStr.Trim());
-
+        int j = DBHelper.UpdateData("expierence_list", param, new string[,] { { "id", "int", expierenceId.ToString() } }, Util.conStr.Trim());
+        if (j == 1)
+        {
+            Response.Write("{\"status\": 0, \"expierence_list_id\": " + expierenceId.ToString() + "}");
+        }
+        else
+        {
+            Response.Write("{\"status\": 1, \"error_message\": \"Update detail info failed.\"}");
+        }
     }
 </script>
