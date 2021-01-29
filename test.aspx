@@ -6,8 +6,8 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //EquipMaintainRequestInshop.PlaceOrder(63);
-        Util.GetJsonKeys("{\"status\": 0, \"error_message\": \"aa\"}");
+        WeixinPaymentOrder odr = new WeixinPaymentOrder("1611925136012100");
+        odr.Refund(0.01);
     }
 </script>
 
