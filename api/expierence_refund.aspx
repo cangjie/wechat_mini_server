@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "18"));
+        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "26"));
         double amount = double.Parse(Util.GetSafeRequestValue(Request, "amount", "0.01"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "");
 
@@ -32,7 +32,7 @@
             Response.End();
         }
 
-        string outTradeNo = order._fields["out_trade_no"].ToString();
+        string outTradeNo = order.OutTradeNo.Trim();
         WeixinPaymentOrder payOrder = new WeixinPaymentOrder(outTradeNo);
         bool ret = payOrder.Refund(amount);
 
