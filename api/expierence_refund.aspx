@@ -5,7 +5,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "10"));
+        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "18"));
         double amount = double.Parse(Util.GetSafeRequestValue(Request, "amount", "0.01"));
         string memo = Util.GetSafeRequestValue(Request, "memo", "");
 
