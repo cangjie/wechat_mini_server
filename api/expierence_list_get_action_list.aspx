@@ -22,7 +22,7 @@
 
         for (int i = 0; i < dt.Rows.Count; i++)
         {
-            subJson = subJson + ((i > 0) ? ", " : "") + Util.ConvertDataFieldsToJson(dt.Rows[0]);
+            subJson = subJson + ((i > 0) ? ", " : "") + Util.ConvertDataFieldsToJson(dt.Rows[i]);
         }
         Response.Write("{\"status\": 0, \"count\": " + dt.Rows.Count + ", \"expierence_list_arr\":[" + subJson + "]}");
     }
