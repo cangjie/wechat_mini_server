@@ -46,12 +46,12 @@
 
         try
         {
-            DBHelper.UpdateData("expierenct_list", new string[,] { {"return_memo", "varchar", memo.Trim() }, {"refund_amount", "float", amount.ToString() },
+            DBHelper.UpdateData("expierence_list", new string[,] { {"return_memo", "varchar", memo.Trim() }, {"refund_amount", "float", amount.ToString() },
                 {"refund_id", "int", refundId.ToString() } }, new string[,] { { "id", "int", id.ToString() } }, Util.conStr.Trim());
         }
-        catch
-        { 
-        
+        catch(Exception err)
+        {
+           
         }
 
         Response.Write("{\"status\": 0, \"refund_status\": " + (ret ? "1" : "0") + ", \"refund_id\": " + refundId.ToString() + " }");
