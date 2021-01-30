@@ -12,10 +12,11 @@
             Response.Write("{\"status\": 0, \"error_message\": \"Staff only.\" }");
             Response.End();
         }
-        string sql = " select distinct expierence_list.*, order_online.* from expierence_list  "
-            + " left join order_online on order_online.[id] = guarantee_order_id  "
-            + " left join weixin_payment_orders_refund on weixin_payment_orders_refund.out_trade_no = order_online.out_trade_no "
-            + " where pay_state = 1 and   weixin_payment_orders_refund.[id] is null order by expierence_list.[id] desc ";
+        string sql = " select distinct expierence_list.*, order_online.*, order_out_trade_no from expierence_list  "
+            + " left join order_online on order_online.[id] = guarantee_order_id   "
+            + " left join  weixin_payment_orders on order_product_id = guarantee_order_id "
+            + " where pay_state = 1 and not exists( select 'a' from weixin_payment_orders_refund where out_trade_no = order_out_trade_no ) "
+            + " order by expierence_list.[id] desc ";
         DataTable dt = DBHelper.GetDataTable(sql);
 
         string subJson = "";
