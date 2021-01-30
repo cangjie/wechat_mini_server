@@ -15,7 +15,7 @@
         string sql = " select distinct expierence_list.*, order_online.* from expierence_list  "
             + " left join order_online on order_online.[id] = guarantee_order_id  "
             + " left join weixin_payment_orders_refund on weixin_payment_orders_refund.out_trade_no = order_online.out_trade_no "
-            + " where pay_state = 1 and and  weixin_payment_orders_refund.[id] is null order by expierence_list.[id] desc ";
+            + " where pay_state = 1 and   weixin_payment_orders_refund.[id] is null order by expierence_list.[id] desc ";
         DataTable dt = DBHelper.GetDataTable(sql);
 
         string subJson = "";
