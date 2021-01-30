@@ -7,6 +7,7 @@
     {
         int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "10"));
         double amount = double.Parse(Util.GetSafeRequestValue(Request, "amount", "0.01"));
+        string memo = Util.GetSafeRequestValue(Request, "memo", "");
 
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
@@ -34,7 +35,26 @@
         string outTradeNo = order._fields["out_trade_no"].ToString();
         WeixinPaymentOrder payOrder = new WeixinPaymentOrder(outTradeNo);
         bool ret = payOrder.Refund(amount);
-        Response.Write("{\"status\": 0, \"refund_status\": " + (ret ? "1" : "0") + "}");
+
+        DataTable dtRefund = DBHelper.GetDataTable(" select top 1 * from weixin_payment_orders_refund where out_trade_no = '"
+            + outTradeNo.Trim() + "' order by [id] desc ");
+        int refundId = 0;
+        if (dtRefund.Rows.Count > 0)
+        {
+            refundId = int.Parse(dtRefund.Rows[0]["id"].ToString());
+        }
+
+        try
+        {
+            DBHelper.UpdateData("expierenct_list", new string[,] { {"return_memo", "varchar", memo.Trim() }, {"refund_amount", "float", amount.ToString() },
+                {"refund_id", "int", refundId.ToString() } }, new string[,] { { "id", "int", id.ToString() } }, Util.conStr.Trim());
+        }
+        catch
+        { 
+        
+        }
+
+        Response.Write("{\"status\": 0, \"refund_status\": " + (ret ? "1" : "0") + ", \"refund_id\": " + refundId.ToString() + " }");
     }
 
 </script>
