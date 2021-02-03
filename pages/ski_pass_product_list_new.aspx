@@ -254,7 +254,7 @@
             
             foreach (Product p in prodArr)
             {
-                if (!currentResort.Trim().Equals("nanshan"))
+                if (!currentResort.Trim().Equals("南山"))
                 {
                     continue;
                 }
