@@ -254,10 +254,7 @@
             
             foreach (Product p in prodArr)
             {
-                if (!currentResort.Trim().Equals("南山"))
-                {
-                    continue;
-                }
+              
              %>
         <br />
         <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>')" >

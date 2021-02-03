@@ -125,33 +125,20 @@ public class Product
 
     public static Product[] GetSkiPassList(string resort)
     {
+        string resortDetail = "";
+        if (resort.StartsWith("八易"))
+        {
+            resortDetail = resort.Replace("八易", "");
+            resort = "八易";
+        }
         string sqlStr = " select * from product_resort_ski_pass left join product on product.[id] = product_id   where type = '雪票' and  hidden = 0 and ";
-        if (resort.Trim().Equals("nanshan"))
-        {
-            sqlStr = sqlStr + " name like '南山%' ";
-        }
-        if (resort.Trim().Equals("bayi"))
-        {
-            sqlStr = sqlStr + " name like '万龙八易%' and shop = '八易' ";
-        }
-        if (resort.Trim().Equals("bayidan"))
-        {
-            sqlStr = sqlStr + " name like '万龙八易%' and shop = '八易租单板' ";
-        }
-        if (resort.Trim().Equals("bayishuang"))
-        {
-            sqlStr = sqlStr + " name like '万龙八易%' and shop = '八易租双板' ";
-        }
-        if (resort.Trim().Equals("haixuan"))
-        {
-            sqlStr = sqlStr + "  shop = '单板海选' ";
-        }
-
-        if (resort.Trim().Equals("qiaobo"))
-        {
-            sqlStr = sqlStr + " name like '乔波%' ";
-        }
+        
         sqlStr = sqlStr + " resort = '" + resort.Trim() + "' ";
+
+        if (!resortDetail.Trim().Equals(""))
+        {
+            sqlStr = sqlStr + " and [name] like '%" + resortDetail.Trim() + "%' ";
+        }
 
         sqlStr = sqlStr + "   order by sort desc ";
         DataTable dt = DBHelper.GetDataTable(sqlStr);
