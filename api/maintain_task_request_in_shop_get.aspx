@@ -6,7 +6,7 @@
     protected void Page_Load(object sender, EventArgs e)
     {
         string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
-        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "1"));
+        int id = int.Parse(Util.GetSafeRequestValue(Request, "id", "266"));
         string openId = MiniUsers.CheckSessionKey(sessionKey);
         MiniUsers user = new MiniUsers(openId);
         EquipMaintainRequestInshop info = new EquipMaintainRequestInshop(id);
