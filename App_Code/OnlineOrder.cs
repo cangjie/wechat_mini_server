@@ -167,6 +167,21 @@ public class OnlineOrder
         }
     }
 
+    public string OutTradeNo
+    {
+        get
+        {
+            string no = "";
+            DataTable dt = DBHelper.GetDataTable(" select * from weixin_payment_orders where order_product_id = " + _fields["id"].ToString());
+            if (dt.Rows.Count > 0)
+            {
+                no = dt.Rows[0]["order_out_trade_no"].ToString().Trim();
+            }
+            dt.Dispose();
+            return no;
+        }
+    }
+
     /*
     public double OrderPrice
     {

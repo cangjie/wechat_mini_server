@@ -38,9 +38,14 @@
             noSession = true;
         }
 
-        
+
 
         currentUser = new MiniUsers(openId.Trim());
+
+        if (currentUser._fields["blocked"].ToString().Equals("1"))
+        {
+            Response.End();
+        }
 
         /*
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
@@ -233,26 +238,28 @@
 </head>
 <body>
     <div>
-        <!--ul class="nav nav-tabs" -->
+        <ul class="nav nav-tabs" >
             <!--li class="nav-item">
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
             </li-->
-            <!--li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
-            </li-->
-            <!--li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易自带") %>" >八易自带</a>
-            </!--li>
+            </!li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租单板") %>" >八易租单板</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租双板") %>" >八易租双板</a>
             </li>
-        </!--ul-->
+        </ul>
         <%
+            
             foreach (Product p in prodArr)
             {
+              
              %>
         <br />
         <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>')" >

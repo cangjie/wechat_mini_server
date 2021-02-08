@@ -775,6 +775,13 @@ public class Util
                     return true;
                 }
             }
+            if (day.Trim().Equals("周五"))
+            {
+                if (currentDate.DayOfWeek == DayOfWeek.Friday)
+                {
+                    return true;
+                }
+            }
             if (day.IndexOf("--") >= 0)
             {
                 try
