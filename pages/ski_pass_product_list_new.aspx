@@ -38,9 +38,14 @@
             noSession = true;
         }
 
-        
+
 
         currentUser = new MiniUsers(openId.Trim());
+
+        if (currentUser._fields["blocked"].ToString().Equals("1"))
+        {
+            Response.End();
+        }
 
         /*
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
