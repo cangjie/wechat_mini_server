@@ -53,6 +53,10 @@
             */
 
         string resort = Util.GetSafeRequestValue(Request, "resort", "八易自带");
+        if (resort.Trim().Equals("南山") && DateTime.Now > DateTime.Parse("2021-2-9 23:00"))
+        {
+            Response.End();
+        }
         if (!resort.Trim().Equals(""))
         {
             currentResort = resort;
@@ -241,10 +245,8 @@
         <ul class="nav nav-tabs" >
             <!--li class="nav-item">
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
             </li-->
+            
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易自带") %>" >八易自带</a>
             </!li>
@@ -253,6 +255,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租双板") %>" >八易租双板</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
             </li>
         </ul>
         <%
