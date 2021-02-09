@@ -273,7 +273,7 @@
             </div>
             <div class="panel-body">
                 <%
-               if (currentResort.Trim().Equals("南山")）
+               if (currentResort.Trim().Equals("南山"))
                 {
 %>
                 <font color="red">
