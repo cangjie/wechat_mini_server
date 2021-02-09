@@ -53,7 +53,7 @@
             */
 
         string resort = Util.GetSafeRequestValue(Request, "resort", "八易自带");
-        if (resort.Trim().Equals("南山") && DateTime.Now > DateTime.Parse("2021-2-9 23:00"))
+        if (resort.Trim().Equals("南山") && (DateTime.Now.Hour >= 23  || DateTime.Now.Hour < 15))
         {
             Response.End();
         }
@@ -272,6 +272,19 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
+                <%
+               if (currentResort.Trim().Equals("南山")）
+                {
+%>
+                <font color="red">
+                    南山雪票春节期间预定须知: <br />
+                    <b>1.需提前一天预定，因南山节假日期间限流措施，当日定票恕不接待。</b><br />
+                    <b>2.定票时间：每日下午15点至晚上23点可定票，到时将自动下线雪票。</b><br />
+                    <b>3.出票日自动出票，出票后概不退换，请核对清楚后购买。</b><br />
+                </font>
+                <%
+                }
+                 %>
                 价格：<%=p.SalePrice.ToString()%> <%if (!p._fields["stock_num"].ToString().Trim().Equals("-1")) {
                                                        %>剩余：<%=p._fields["stock_num"].ToString().Trim() %>张<%
                                                    } %><br />
