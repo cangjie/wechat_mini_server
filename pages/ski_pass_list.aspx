@@ -155,7 +155,7 @@
     if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
     {
                             %>
-                    <li>滑雪时间：17:30-22:00</li>
+                    <li>滑雪时间：平日17:00-24:00 节假日通宵</li>
                                 <%
     }
     if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
