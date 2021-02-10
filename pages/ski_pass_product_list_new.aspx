@@ -16,14 +16,25 @@
 
     public bool noSession = false;
 
+    public string sessionKey = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hsuqJBh+SCS3Mw1tiXxyNA==");
+        sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
 
         if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
             sessionKey = Session["sessionkey"].ToString().Trim();
+        }
+
+        if (sessionKey.Trim().Equals(""))
+        {
+            Response.End();
+        }
+        else
+        {
+            Session["sessionkey"] = sessionKey.Trim();
         }
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
