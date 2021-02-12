@@ -63,7 +63,7 @@
             Response.Redirect("register_cell_number.aspx?refurl=" + currentPageUrl, true);
             */
 
-        string resort = Util.GetSafeRequestValue(Request, "resort", "八易自带");
+        string resort = Util.GetSafeRequestValue(Request, "resort", "南山");
         if (resort.Trim().Equals("南山") && (DateTime.Now.Hour >= 23  || DateTime.Now.Hour < 15))
         {
             Response.End();
@@ -257,7 +257,9 @@
             <!--li class="nav-item">
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
             </li-->
-            
+            <li class="nav-item">
+                <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易自带") %>" >八易自带</a>
             </!li>
@@ -267,9 +269,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租双板") %>" >八易租双板</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
-            </li>
+            
         </ul>
         <%
             
