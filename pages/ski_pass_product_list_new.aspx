@@ -272,7 +272,7 @@
             
             foreach (Product p in prodArr)
             {
-                if (currentResort.Trim().Equals("南山") && (DateTime.Now.Hour >= 23  || DateTime.Now.Hour < 15))
+                if (currentResort.Trim().Equals("南山") && (DateTime.Now.Hour >= 22  || DateTime.Now.Hour < 15))
         {
             break;
         }
