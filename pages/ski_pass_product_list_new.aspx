@@ -64,10 +64,7 @@
             */
 
         string resort = Util.GetSafeRequestValue(Request, "resort", "南山");
-        if (resort.Trim().Equals("南山") && (DateTime.Now.Hour >= 23  || DateTime.Now.Hour < 15))
-        {
-            Response.End();
-        }
+        
         if (!resort.Trim().Equals(""))
         {
             currentResort = resort;
@@ -275,6 +272,10 @@
             
             foreach (Product p in prodArr)
             {
+                if (currentResort.Trim().Equals("南山") && (DateTime.Now.Hour >= 23  || DateTime.Now.Hour < 15))
+        {
+            break;
+        }
               
              %>
         <br />
