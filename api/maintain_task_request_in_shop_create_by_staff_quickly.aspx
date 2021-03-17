@@ -173,7 +173,7 @@
                 newId = int.Parse(dt.Rows[0][0].ToString());
             }
             dt.Dispose();
-            Response.Write("{\"status\": 0, \"maintain_in_shop_request_id\": " + newId.ToString() + ", \"input_json\": " + json + ", batch_id: " + batchId.ToString() + " }");
+            Response.Write("{\"status\": 0, \"maintain_in_shop_request_id\": " + newId.ToString() + ", \"input_json\": " + json + " }");
         }
         else
         {
