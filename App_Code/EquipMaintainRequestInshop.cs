@@ -30,7 +30,12 @@ public class EquipMaintainRequestInshop
     {
         get
         {
-            return _fields["open_id"].ToString().Trim();
+            string openId = _fields["open_id"].ToString().Trim();
+            if (openId.Length < 5)
+            {
+                openId = "";
+            }
+            return openId;
         }
     }
 

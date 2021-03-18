@@ -60,7 +60,7 @@ public class MiniUsers
         get
         {
             string openId = "";
-            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and union_id = '" + OpenId.Trim().Replace("'", "") + "' ");
+            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and union_id = '" + _fields["union_id"].ToString().Trim() + "' ");
             if (dt.Rows.Count > 0)
             {
                 openId = dt.Rows[0]["open_id"].ToString();

@@ -223,8 +223,8 @@ public class WeixinPaymentOrder
             new string[,] { { "order_out_trade_no", "bigint", _fields["order_out_trade_no"].ToString() } }, Util.conStr.Trim());
 
 
-        string appId = System.Configuration.ConfigurationSettings.AppSettings["wxappid"].Trim();
-        string mchId = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
+        string appId = "wxf91253fd1c38d24e";
+        string mchId = "1517744411";
         string nonceStr = Util.GetNonceString(10);
         string queryXmlString = "<xml><appid>" + appId.Trim() + "</appid><mch_id>" + mchId.Trim() + "</mch_id><nonce_str>"
             + Util.GetNonceString(10) + "</nonce_str><out_trade_no>" + _fields["order_out_trade_no"].ToString().Trim() + "</out_trade_no>"

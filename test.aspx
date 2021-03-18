@@ -6,9 +6,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        double a = 0.02;
-        double b = 0.01;
-        Response.Write((int)(a / b));
+        //WeixinPaymentOrder odr = new WeixinPaymentOrder("1612004687012191");
+        //WeixinPaymentOrder odr = new WeixinPaymentOrder("1611832196012035");
+        //odr.Refund(0.01);
+        Product.GetSkiPassList("八易自带");
     }
 </script>
 
