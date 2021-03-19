@@ -18,7 +18,7 @@
             Response.End();
         }
 
-        string sql = "select maintain_in_shop_request.*, pay_state, order_real_pay_price, product.[name] from  order_online"
+        string sql = "select maintain_in_shop_request.*, pay_state, product.[name], sale_price, (sale_price + confirmed_additional_fee) as order_real_pay_price from  order_online"
             + " left join maintain_in_shop_request on order_id = order_online.[id] "
             + " left join product on product.[id] = maintain_in_shop_request.confirmed_product_id"
             + " where maintain_in_shop_request.[id] is not null  and pay_state = 1 and pay_time >= '" + currentDate.ToShortDateString() 
