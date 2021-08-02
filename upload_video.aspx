@@ -33,7 +33,7 @@
             string oriFileName = Request.Files[i].FileName.Trim();
             string ext = oriFileName.Split('.')[oriFileName.Split('.').Length - 1].Trim();
             string fullFileName = "/upload/" + dateStr + "/" + fileName.Trim() + "." + ext.Trim();
-            if (ext.Trim().Equals("mp4") && !timeStamp.Trim().Equals(""))
+            if (ext.Trim().ToLower().Equals("mp4") && !timeStamp.Trim().Equals(""))
             { 
                 fullFileName = "/upload/" + dateStr + "/" + timeStamp.Trim() + "." + ext.Trim();
             }
