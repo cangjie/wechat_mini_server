@@ -170,8 +170,15 @@ public class MiniUsers
                 + "' and open_id = '" + openId.Trim() + "' ");
             if (dt.Rows.Count == 0)
             {
-                DBHelper.InsertData("mini_session", new string[,] { {"session_key", "varchar", sessionKey.Trim() },
+                try
+                {
+                    DBHelper.InsertData("mini_session", new string[,] { {"session_key", "varchar", sessionKey.Trim() },
                     {"open_id", "varchar", openId.Trim() } });
+                }
+                catch
+                { 
+                
+                }
             }
         }
         return sessionKey.Trim();
