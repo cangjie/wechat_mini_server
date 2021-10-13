@@ -15,7 +15,6 @@
         int orderId = temp.PlaceOnlineOrder(openId.Trim());
 
         Response.Write("{\"order_id\": " + orderId.ToString() + " }");
-
     }
 </script>
 
