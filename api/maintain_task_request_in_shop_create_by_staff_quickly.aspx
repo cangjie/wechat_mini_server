@@ -136,6 +136,18 @@
         {
 
         }
+        bool urgent = false;
+        try
+        {
+            if (int.Parse(Util.GetSimpleJsonValueByKey(json, "urgent")) == 1)
+            {
+                urgent = true;
+            }
+        }
+        catch
+        { 
+        
+        }
         if (!checkParametersMessage.Trim().Equals(""))
         {
             Response.Write("{\"status\": 1, \"error_message\": \"" + checkParametersMessage + "\"}");
@@ -159,6 +171,7 @@
             {"confirmed_candle", "int", pCandle? "1" : "0" },
             {"confirmed_more", "varchar", pMore.Trim() },
             {"confirmed_pick_date", "datetime", pPickDate.ToShortDateString() },
+            {"confirmed_urgent", "int", urgent? "1":"0"},
             {"confirmed_memo", "varchar", pMemo.Trim() },
             {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
             {"confirmed_product_id", "int", pProductId.ToString() },
