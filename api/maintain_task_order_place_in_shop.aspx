@@ -66,12 +66,30 @@
 
         }
 
-        bool pickImmediately = true;
+
+
+        bool pickImmediately = false;
+
+        try
+        {
+            if (int.Parse(Util.GetSimpleJsonValueByKey(json, "urgent")) == 1)
+            {
+                pickImmediately = true;
+            }
+        }
+        catch
+        {
+
+        }
+
+
+
+        /*
         if (pickDate.Date > DateTime.Now.Date)
         {
             pickImmediately = false;
         }
-
+        */
         switch (shop)
         {
             case "万龙":
@@ -157,8 +175,8 @@
                         scale = equipInfo["scale"].ToString().Trim();
                     }
                     catch
-                    { 
-                    
+                    {
+
                     }
                     string cell = ""; //Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
                     try
@@ -237,7 +255,7 @@
 
                     }
                     int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
-                        additionalFee, memo, pickDate.Date, productId, openId.Trim());
+                        additionalFee, memo, pickDate.Date, productId, openId.Trim(), pickImmediately);
                     if (r == 1)
                     {
                         orderId = EquipMaintainRequestInshop.PlaceOrder(id);
