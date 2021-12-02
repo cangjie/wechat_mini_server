@@ -29,6 +29,8 @@
 
         string pMemo = "";
 
+        string ticketCode = "";
+
         double pAdditionalCharge = 0;
         int pProductId = 0;
         try
@@ -106,6 +108,14 @@
         }
         try
         {
+            ticketCode = Util.GetSimpleJsonValueByKey(json, "ticket_code").Trim();
+        }
+        catch
+        { 
+        
+        }
+        try
+        {
             pPickDate = DateTime.Parse(Util.GetSimpleJsonValueByKey(json, "pick_date").Trim());
         }
         catch
@@ -145,8 +155,8 @@
             }
         }
         catch
-        { 
-        
+        {
+
         }
         if (!checkParametersMessage.Trim().Equals(""))
         {
@@ -173,6 +183,7 @@
             {"confirmed_pick_date", "datetime", pPickDate.ToShortDateString() },
             {"confirmed_urgent", "int", urgent? "1":"0"},
             {"confirmed_memo", "varchar", pMemo.Trim() },
+            {"ticket_code", "varchar", ticketCode.Trim() },
             {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
             {"confirmed_product_id", "int", pProductId.ToString() },
             {"batch_id", "int", batchId.ToString() }
