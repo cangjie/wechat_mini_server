@@ -1,15 +1,14 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
 
 <script runat="server">
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //WeixinPaymentOrder odr = new WeixinPaymentOrder("1612004687012191");
-        //WeixinPaymentOrder odr = new WeixinPaymentOrder("1611832196012035");
-        //odr.Refund(0.01);
-        Product.GetSkiPassList("八易自带");
+        Stream postStream = Request.InputStream;
+        string inputStr = new StreamReader(postStream).ReadToEnd().Trim();
+        System.IO.File.AppendAllText(Server.MapPath("rfid_post.txt"), DateTime.Now.ToString() + "\r\n" + inputStr+"\r\n");
     }
 </script>
 
@@ -20,7 +19,6 @@
 <body>
     <form id="form1" runat="server">
         <div>
-         
         </div>
     </form>
 </body>

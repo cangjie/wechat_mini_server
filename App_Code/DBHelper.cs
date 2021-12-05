@@ -250,4 +250,16 @@ public class DBHelper
         return id;
     }
 
+    public static string[,] ConvertJsonToParameterStringArray(string json)
+    {
+        string[] keyArr = Util.GetJsonKeys(json);
+        string[,] paramArr = new string[keyArr.Length, 3];
+        for (int i = 0; i < keyArr.Length; i++)
+        {  
+            paramArr[i, 0] = keyArr[i].Trim();
+            paramArr[i, 1] = "varchar";
+            paramArr[i, 2] = Util.GetSimpleJsonValueByKey(json, keyArr[i]).Trim();
+        }
+        return paramArr;
+    }
 }

@@ -120,11 +120,11 @@
                 <p>使用说明：</p>
                 <ul>
                     <li><font color="red" >出票日：<%=pass.AppointDate.ToShortDateString() %>，将于该日自动出票。</font></li>
-                    <li>到达代理商入口请拨打：13693171170，将有工作人员接您入场。</li>
+                    <li>到达代理商入口请拨打：13521733301，将有工作人员接您入场。</li>
                     <li>来店请出示二维码验票、取票。</li>
                     <li>此票售出后不予退换。</li>
                 </ul>
-                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13693171170</p>
+                <p>雪场地址：<br />北京市密云区河南寨镇圣水头村南山滑雪场<br />客服电话：13521733301</p>
                 <%}
     else
     {
@@ -155,7 +155,7 @@
     if (p._fields["name"].ToString().Trim().IndexOf("夜场") >= 0)
     {
                             %>
-                    <li>滑雪时间：17:30-22:00</li>
+                    <li>滑雪时间：平日17:00-24:00 节假日通宵</li>
                                 <%
     }
     if (p._fields["name"].ToString().IndexOf("自助餐") >= 0)
@@ -168,9 +168,9 @@
 
                     
                 </ul>
-                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13714100910<br />日场时间：09:00-18:00<br />夜场时间：17:30-22:00（周日-周四）；
-                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17:30-22:30（周五、周六、
-                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 春节初一到初六、<font color='red' >除夕不营业</font>）</p>
+                <p>雪场地址：<br />北京市丰台区射击场路甲12号万龙八易滑雪场<br />客服电话：13693171170<br />日场时间：09:00-18:00<br />夜场时间：17:00-24:00（周日-周四）；
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 周末节假日通宵
+                    <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
 
 
                 <%

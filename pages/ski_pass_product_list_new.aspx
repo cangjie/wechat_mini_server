@@ -16,14 +16,25 @@
 
     public bool noSession = false;
 
+    public string sessionKey = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hsuqJBh+SCS3Mw1tiXxyNA==");
+        sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
 
         if (sessionKey.Trim().Equals("") && Session["sessionkey"] != null && !Session["sessionkey"].ToString().Trim().Equals(""))
         {
             sessionKey = Session["sessionkey"].ToString().Trim();
+        }
+
+        if (sessionKey.Trim().Equals(""))
+        {
+            Response.End();
+        }
+        else
+        {
+            Session["sessionkey"] = sessionKey.Trim();
         }
 
         string openId = MiniUsers.CheckSessionKey(sessionKey);
@@ -38,9 +49,14 @@
             noSession = true;
         }
 
-        
+
 
         currentUser = new MiniUsers(openId.Trim());
+
+        if (currentUser._fields["blocked"].ToString().Equals("1"))
+        {
+            Response.End();
+        }
 
         /*
         if (currentUser.CellNumber.Trim().Equals("") || currentUser.VipLevel < 1)
@@ -48,6 +64,7 @@
             */
 
         string resort = Util.GetSafeRequestValue(Request, "resort", "南山");
+        
         if (!resort.Trim().Equals(""))
         {
             currentResort = resort;
@@ -233,26 +250,30 @@
 </head>
 <body>
     <div>
-        <!--ul class="nav nav-tabs" -->
+        <ul class="nav nav-tabs" >
             <!--li class="nav-item">
                 <a class=nav-link" href="ski_pass_product_list.aspx?resort=<%=Server.UrlEncode("万龙") %>" >万龙</a>
             </li-->
-            <!--li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("南山") %>" >南山</a>
-            </li-->
-            <!--li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易自带") %>" >八易自带</a>
-            </!--li>
+            </!li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租单板") %>" >八易租单板</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="ski_pass_product_list_new.aspx?resort=<%=Server.UrlEncode("八易租双板") %>" >八易租双板</a>
             </li>
-        </!--ul-->
+            
+        </ul>
         <%
+            
             foreach (Product p in prodArr)
             {
+                
+              
              %>
         <br />
         <div id="ticket-1" name="ticket" class="panel panel-success" style="width:350px" onclick="launch_book_modal('<%=p._fields["id"].ToString().Trim() %>')" >
@@ -260,6 +281,17 @@
                 <h3 class="panel-title"><%=p._fields["name"].ToString() %></h3>
             </div>
             <div class="panel-body">
+                <%
+               if (currentResort.Trim().Equals("南山"))
+                {
+%>
+                <font color="red">
+                    南山雪票预定须知: <br />
+                    <b>出票日自动出票，出票后概不退换，请核对清楚后购买。</b><br />
+                </font>
+                <%
+                }
+                 %>
                 价格：<%=p.SalePrice.ToString()%> <%if (!p._fields["stock_num"].ToString().Trim().Equals("-1")) {
                                                        %>剩余：<%=p._fields["stock_num"].ToString().Trim() %>张<%
                                                    } %><br />

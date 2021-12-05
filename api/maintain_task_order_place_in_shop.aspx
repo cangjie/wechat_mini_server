@@ -4,15 +4,14 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "Y2ypp1tGFvSMeY+Ut9qWNQ==");
         string action = Util.GetSafeRequestValue(Request, "action", "placeorder");
         Stream s = Request.InputStream;
         string json = (new StreamReader(s)).ReadToEnd().Trim();
 
-        //File.WriteAllText(Server.MapPath("test_json.txt"), json);
+        File.WriteAllText(Server.MapPath("test_json.txt"), json);
 
-        //json = "{\"request_id\":\"20\",\"cell_number\":\"13501177897\",\"real_name\":\"\",\"gender\":\"男\",\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Fischer\",\"serial\":\"RC4Booster\",\"scale\":\"165\",\"year\":\"18-19\"},\"edge\":\"0\",\"degree\":\"89\",\"candle\":\"0\",\"repair_more\":\"0\",\"shop\":\"万龙\",\"additional_fee\":\"0.01\"}";
-
+        //json = "{\"equipInfo\":{\"type\":\"双板\",\"brand\":\"Armada/阿玛达\"},\"shop\":\"万龙\",\"degree\":\"89\",\"edge\":\"1\",\"candle\":0,\"pick_date\":\"2020-12-29\",\"repair_more\":\"雪杖等附件寄存\",\"additional_fee\":\"20\",\"request_id\":85}";
         string openId = MiniUsers.CheckSessionKey(sessionKey);
 
 
@@ -67,12 +66,30 @@
 
         }
 
-        bool pickImmediately = true;
+
+
+        bool pickImmediately = false;
+
+        try
+        {
+            if (int.Parse(Util.GetSimpleJsonValueByKey(json, "urgent")) == 1)
+            {
+                pickImmediately = true;
+            }
+        }
+        catch
+        {
+
+        }
+
+
+
+        /*
         if (pickDate.Date > DateTime.Now.Date)
         {
             pickImmediately = false;
         }
-
+        */
         switch (shop)
         {
             case "万龙":
@@ -134,18 +151,66 @@
                     Dictionary<string, object> equipInfo = Util.GetObjectFromJsonByKey(json, "equipInfo");
                     string type = equipInfo["type"].ToString().Trim();
                     string brand = equipInfo["brand"].ToString().Trim();
-                    string serial = equipInfo["serial"].ToString().Trim();
-                    string year = equipInfo["year"].ToString().Trim();
-                    string scale = equipInfo["scale"].ToString().Trim();
-                    string cell = Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
-                    string name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
-                    string gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    string serial = "";// equipInfo["serial"].ToString().Trim();
+                    try
+                    {
+                        serial = equipInfo["serial"].ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string year = ""; //equipInfo["year"].ToString().Trim();
+                    try
+                    {
+                        year = equipInfo["year"].ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string scale = "";// equipInfo["scale"].ToString().Trim();
+                    try
+                    {
+                        scale = equipInfo["scale"].ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string cell = ""; //Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    try
+                    {
+                        cell = Util.GetSimpleJsonValueByKey(json, "cell_number").ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string name = "";// Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    try
+                    {
+                        name = Util.GetSimpleJsonValueByKey(json, "real_name").ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
+                    string gender = "";// Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    try
+                    {
+                        gender = Util.GetSimpleJsonValueByKey(json, "gender").ToString().Trim();
+                    }
+                    catch
+                    {
+
+                    }
                     int degree = int.Parse(Util.GetSimpleJsonValueByKey(json, "degree").ToString().Trim());
                     int id = int.Parse(Util.GetSimpleJsonValueByKey(json, "request_id"));
                     string more = "";
                     try
                     {
-                        more = Util.GetSimpleJsonValueByKey(json, "repair_moore").Trim();
+                        more = Util.GetSimpleJsonValueByKey(json, "repair_more").Trim();
                     }
                     catch
                     {
@@ -162,31 +227,42 @@
                     }
 
                     EquipMaintainRequestInshop req = new EquipMaintainRequestInshop(id);
-                    MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
-                    if (name.Trim().Equals(""))
+                    try
                     {
-                        if (!customer.Nick.Trim().Equals(""))
+                        MiniUsers customer = new MiniUsers(req.OwnerOpenId.Trim());
+                        if (name.Trim().Equals(""))
                         {
-                            name = customer.Nick.Trim();
+                            if (!customer.Nick.Trim().Equals(""))
+                            {
+                                name = customer.Nick.Trim();
+                            }
+                            if (!customer.RealName.Trim().Equals(""))
+                            {
+                                name = customer.RealName.Trim();
+                            }
                         }
-                        if (!customer.RealName.Trim().Equals(""))
+                        if (cell.Trim().Equals(""))
                         {
-                            name = customer.RealName.Trim();
+                            cell = customer.CellNumber.Trim();
+                        }
+                        if (gender.Trim().Equals(""))
+                        {
+                            gender = customer._fields["gender"].ToString().Trim();
                         }
                     }
-                    if (cell.Trim().Equals(""))
+                    catch
                     {
-                        cell = customer.CellNumber.Trim();
-                    }
-                    if (gender.Trim().Equals(""))
-                    {
-                        gender = customer._fields["gender"].ToString().Trim();
+
                     }
                     int r = req.Confirm(type, brand, serial, scale, year, cell, name, gender, edge, degree, candle, more,
-                        additionalFee, memo, pickDate.Date, productId, openId.Trim());
+                        additionalFee, memo, pickDate.Date, productId, openId.Trim(), pickImmediately);
                     if (r == 1)
                     {
                         orderId = EquipMaintainRequestInshop.PlaceOrder(id);
+                    }
+                    else
+                    {
+                        orderId = -1;
                     }
 
                 }

@@ -5,16 +5,29 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "hKC5nig2gEKJjktmponkbA==");
+        string sessionKey = Util.GetSafeRequestValue(Request, "sessionkey", "5F2tmvvVcJSVx118AkQ/yw==");
         string openId = MiniUsers.CheckSessionKey(sessionKey);
+        string miniOpenId = Util.GetSafeRequestValue(Request, "openid", "");
         MiniUsers user = new MiniUsers(openId);
-        if (!user.role.Trim().Equals("staff"))
+        if (!user.role.Trim().Equals("staff") && !miniOpenId.Trim().Equals(""))
         {
             Response.Write("{\"status\": 1, \"err_msg\": \"Staff Only!\"}");
             Response.End();
         }
 
-        string miniOpenId = Util.GetSafeRequestValue(Request, "openid", "oHdTn5W8g2KOGPYOYFQyXaW46EVo");
+
+        if (user.role.Trim().Equals("staff"))
+        {
+            if (miniOpenId.Trim().Equals(""))
+            {
+                miniOpenId = openId;
+            }
+        }
+        else
+        {
+            miniOpenId = openId;
+        }
+
         DataTable dt = DBHelper.GetDataTable(" select * from mini_users where open_id = '" + miniOpenId.Trim() + "' ");
         string miniUserInfoJson = "";
         if (dt.Rows.Count == 1)
@@ -22,7 +35,7 @@
             miniUserInfoJson = Util.ConvertDataFieldsToJson(dt.Rows[0]);
         }
         dt.Dispose();
-        Response.Write("{\"status\": 0, \"count\": " + dt.Rows.Count.ToString() 
+        Response.Write("{\"status\": 0, \"count\": " + dt.Rows.Count.ToString()
             + ", \"mini_users\": [" + miniUserInfoJson.Trim() + "]}");
 
     }

@@ -60,7 +60,21 @@ public class MiniUsers
         get
         {
             string openId = "";
-            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and union_id = '" + OpenId.Trim().Replace("'", "") + "' ");
+            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account' and union_id = '" + _fields["union_id"].ToString().Trim() + "' ");
+            if (dt.Rows.Count > 0)
+            {
+                openId = dt.Rows[0]["open_id"].ToString();
+            }
+            return openId;
+        }
+    }
+
+    public string NewOfficialAccountOpenId
+    {
+        get
+        {
+            string openId = "";
+            DataTable dt = DBHelper.GetDataTable(" select * from unionids where source = 'snowmeet_official_account_new' and union_id = '" + _fields["union_id"].ToString().Trim() + "' ");
             if (dt.Rows.Count > 0)
             {
                 openId = dt.Rows[0]["open_id"].ToString();
@@ -170,8 +184,15 @@ public class MiniUsers
                 + "' and open_id = '" + openId.Trim() + "' ");
             if (dt.Rows.Count == 0)
             {
-                DBHelper.InsertData("mini_session", new string[,] { {"session_key", "varchar", sessionKey.Trim() },
+                try
+                {
+                    DBHelper.InsertData("mini_session", new string[,] { {"session_key", "varchar", sessionKey.Trim() },
                     {"open_id", "varchar", openId.Trim() } });
+                }
+                catch
+                { 
+                
+                }
             }
         }
         return sessionKey.Trim();

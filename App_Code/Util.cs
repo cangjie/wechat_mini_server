@@ -631,6 +631,23 @@ public class Util
         return v.ToString();
     }
 
+    public static string[] GetJsonKeys(string jsonStr)
+    {
+
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        Dictionary<string, object> json = (Dictionary<string, object>)serializer.DeserializeObject(jsonStr);
+        string[] retArr = new string[json.Count];
+        Dictionary<string, object>.KeyCollection keys = json.Keys;
+        int i = 0;
+        foreach (object k in keys)
+        {
+            retArr[i] = k.ToString();
+            i++;
+        }
+        return retArr;
+    }
+
+
     public static Dictionary<string, object> GetObjectFromJsonByKey(string jsonStr, string key)
     {
         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -754,6 +771,13 @@ public class Util
             if (day.Trim().Equals("周日"))
             {
                 if (currentDate.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return true;
+                }
+            }
+            if (day.Trim().Equals("周五"))
+            {
+                if (currentDate.DayOfWeek == DayOfWeek.Friday)
                 {
                     return true;
                 }

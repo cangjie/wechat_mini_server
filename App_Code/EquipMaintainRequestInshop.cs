@@ -30,7 +30,12 @@ public class EquipMaintainRequestInshop
     {
         get
         {
-            return _fields["open_id"].ToString().Trim();
+            string openId = _fields["open_id"].ToString().Trim();
+            if (openId.Length < 5)
+            {
+                openId = "";
+            }
+            return openId;
         }
     }
 
@@ -69,7 +74,7 @@ public class EquipMaintainRequestInshop
     
 
     public int Confirm(string type, string brand, string serial, string scale, string year, string cell, string name, string gender,
-        bool edge, int degree, bool candle, string more, double additionalFee, string memo, DateTime pickDate, int productId, string serviceOpenId)
+        bool edge, int degree, bool candle, string more, double additionalFee, string memo, DateTime pickDate, int productId, string serviceOpenId, bool urgent)
     {
         return DBHelper.UpdateData("maintain_in_shop_request", new string[,] {
             {"confirmed_equip_type", "varchar", type.Trim() },
@@ -83,6 +88,7 @@ public class EquipMaintainRequestInshop
             {"confirmed_more", "varchar", more.Trim() },
             {"confirmed_memo", "varchar", memo.Trim() },
             {"confirmed_pick_date", "datetime", pickDate.ToShortDateString() },
+            {"confirmed_urgent", "int", (urgent?"1":"0") },
             {"confirmed_additional_fee", "float", additionalFee.ToString()},
             {"confirmed_cell", "varchar", cell.Trim() },
             {"confirmed_name", "varchar", name.Trim() },
