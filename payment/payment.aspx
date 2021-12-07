@@ -11,10 +11,10 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "product_id", "9026"));
+        int orderId = int.Parse(Util.GetSafeRequestValue(Request, "product_id", "16387"));
         string appId = System.Configuration.ConfigurationSettings.AppSettings["appid"].Trim();
         string mch_id = System.Configuration.ConfigurationSettings.AppSettings["mch_id"].Trim();
-        string key = "abcdefghijklmnopqrstuvwxyz123456";
+        string key = "snowmeetsnowmeetsnowmeetsnowmeet";
         string nonce_str = Util.GetNonceString(32);
 
 
