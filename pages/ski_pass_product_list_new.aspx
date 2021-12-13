@@ -182,7 +182,10 @@
                 data: { "cart": cart_json, "token": "<%=userToken%>" },
                 success: function(msg, status) {
                     var msg_object = eval("(" + msg + ")");
-                    window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id;
+                    //window.location.href = "../payment/payment.aspx?product_id=" + msg_object.order_id;
+                    wx.miniProgram.navigateTo({
+                        url: '/pages/payment/order_payment?orderid=' + msg_object.order_id
+                    });
                 }
             });
         }
@@ -247,6 +250,7 @@
         }
      
     </script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
 </head>
 <body>
     <div>
