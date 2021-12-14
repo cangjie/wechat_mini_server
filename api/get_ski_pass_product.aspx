@@ -10,6 +10,8 @@
         int count = int.Parse(Util.GetSafeRequestValue(Request, "count", "1"));
         int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "86"));
 
+        int totalCount = 25;
+
         //Dictionary<SkiPass, int> skiPassPair = new Dictionary<SkiPass, int>(); ;
         KeyValuePair<SkiPass, int> skiPassPair;
         ArrayList arr = new ArrayList();
@@ -46,6 +48,35 @@
             itemJson = itemJson + (itemJson.Trim().Equals("")? "" : ", ") + "{\"count\": " + skiPassPair.Value.ToString()
                 + ", \"product_info\": " + Util.ConvertDataFieldsToJson(skiPassPair.Key._fields) +"} ";
         }
+
+
+        if (p._fields["shop"].ToString().Trim().Equals("南山"))
+        {
+            try
+            {
+                Product p = new Product(productId);
+
+                int type = 0;
+                if (p._fields["name"].ToString().IndexOf("夜") >= 0 && p._fields["shop"].ToString().Trim().Equals("南山"))
+                {
+                    type = 1;
+                }
+                string numStr = Util.GetWebContent("/core/OrderOnlines/GetSkiPassNum/" + type.ToString() + "?dateStr=" + skiDate.Year.ToString() + "-" + skiDate.Month.ToString() + "-" + skiDate.Day.ToString());
+                if (int.Parse(numStr) > totalCount)
+                {
+                    itemJson = "";
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
+
+
+
         Response.Write("{\"results\":[" + itemJson.Trim() + "]}");
 
     }
