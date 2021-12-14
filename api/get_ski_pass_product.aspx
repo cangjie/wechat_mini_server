@@ -6,9 +6,9 @@
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", "2020-11-29"));
+        DateTime skiDate = DateTime.Parse(Util.GetSafeRequestValue(Request, "skidate", "2021-12-17"));
         int count = int.Parse(Util.GetSafeRequestValue(Request, "count", "1"));
-        int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "86"));
+        int productId = int.Parse(Util.GetSafeRequestValue(Request, "id", "94"));
 
         int totalCount = 25;
 
@@ -49,20 +49,21 @@
                 + ", \"product_info\": " + Util.ConvertDataFieldsToJson(skiPassPair.Key._fields) +"} ";
         }
 
+        Product p = new Product(productId);
 
         if (p._fields["shop"].ToString().Trim().Equals("南山"))
         {
             try
             {
-                Product p = new Product(productId);
+                
 
                 int type = 0;
                 if (p._fields["name"].ToString().IndexOf("夜") >= 0 && p._fields["shop"].ToString().Trim().Equals("南山"))
                 {
                     type = 1;
                 }
-                string numStr = Util.GetWebContent("/core/OrderOnlines/GetSkiPassNum/" + type.ToString() + "?dateStr=" + skiDate.Year.ToString() + "-" + skiDate.Month.ToString() + "-" + skiDate.Day.ToString());
-                if (int.Parse(numStr) > totalCount)
+                string numStr = Util.GetWebContent("http://mini.snowmeet.top/core/OrderOnlines/GetSkiPassNum/" + type.ToString() + "?dateStr=" + skiDate.Year.ToString() + "-" + skiDate.Month.ToString() + "-" + skiDate.Day.ToString());
+                if (int.Parse(numStr) + int.Parse(Util.GetSafeRequestValue(Request, "count", "1")) > totalCount)
                 {
                     itemJson = "";
                 }
