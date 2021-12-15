@@ -92,6 +92,7 @@
         */
         switch (shop)
         {
+            case "南山":
             case "万龙":
                 if (pickImmediately)
                 {
