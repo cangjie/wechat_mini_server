@@ -111,8 +111,8 @@
             ticketCode = Util.GetSimpleJsonValueByKey(json, "ticket_code").Trim();
         }
         catch
-        { 
-        
+        {
+
         }
         try
         {
@@ -186,7 +186,8 @@
             {"ticket_code", "varchar", ticketCode.Trim() },
             {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
             {"confirmed_product_id", "int", pProductId.ToString() },
-            {"batch_id", "int", batchId.ToString() }
+            {"batch_id", "int", batchId.ToString() },
+            {"shop", "varchar", pShop.Trim() }
         });
         if (i == 1)
         {
