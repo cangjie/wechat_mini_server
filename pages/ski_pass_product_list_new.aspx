@@ -152,6 +152,20 @@
                         }
                     }
                     div_summary.innerHTML = div_summary.innerHTML + "小计：" + summary_price.toString();
+                    var type = 0;
+                    if (product_id == 88 || product_id == 91 || product_id == 106 || product_id == 107 || product_id == 108 || product_id == 109 || product_id == 208 || product_id == 209) {
+                        type = 1;
+                    }
+                    var getNumUrl = 'https://mini.snowmeet.top/core/OrderOnlines/GetSkiPassNum/' + type.toString() + '?dateStr=' + ski_date
+                    $.ajax({
+                        url: getNumUrl,
+                        method: 'GET',
+                        async: false,
+                        success: function (msg) {
+                            var num = 25 - parseInt(msg.data.toString());
+                            div_summary.innerHTML = div_summary.innerHTML + "<br/>剩余：" + num.toString();
+                        }
+                    });
                 }
             });
         }
