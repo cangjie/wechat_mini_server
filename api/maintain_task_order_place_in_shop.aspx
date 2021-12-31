@@ -94,6 +94,7 @@
         {
             case "南山":
             case "万龙":
+            case "渔阳":
                 if (pickImmediately)
                 {
                     if (edge && candle)
