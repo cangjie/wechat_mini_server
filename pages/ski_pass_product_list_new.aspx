@@ -162,8 +162,13 @@
                         method: 'GET',
                         async: false,
                         success: function (msg) {
-                            var num = 25 - parseInt(msg.data.toString());
-                            div_summary.innerHTML = div_summary.innerHTML + "<br/>剩余：" + num.toString();
+                            try {
+                                var num = 25 - parseInt(msg.toString());
+                                div_summary.innerHTML = div_summary.innerHTML + "<br/>剩余：" + num.toString();
+                            }
+                            catch{
+
+                            }
                         }
                     });
                 }
