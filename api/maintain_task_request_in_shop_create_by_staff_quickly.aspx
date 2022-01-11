@@ -158,6 +158,24 @@
         {
 
         }
+        string payMethod = "微信";
+        try
+        {
+            payMethod = Util.GetSimpleJsonValueByKey(json, "payMethod").Trim();
+        }
+        catch
+        {
+
+        }
+        string payMemo = "";
+        try
+        {
+            payMemo = Util.GetSimpleJsonValueByKey(json, "payMemo").Trim();
+        }
+        catch
+        { 
+        
+        }
         if (!checkParametersMessage.Trim().Equals(""))
         {
             Response.Write("{\"status\": 1, \"error_message\": \"" + checkParametersMessage + "\"}");
@@ -187,7 +205,9 @@
             {"confirmed_additional_fee", "float",  pAdditionalCharge.ToString()},
             {"confirmed_product_id", "int", pProductId.ToString() },
             {"batch_id", "int", batchId.ToString() },
-            {"shop", "varchar", pShop.Trim() }
+            {"shop", "varchar", pShop.Trim() },
+            {"pay_method", "varchar", payMethod.Trim() },
+            {"pay_memo", "varchar", payMemo.Trim() }
         });
         if (i == 1)
         {
