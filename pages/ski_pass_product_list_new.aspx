@@ -338,8 +338,8 @@
                         </div>
 			            <br/>
                         <div>
-                            人数：<span class="dropdown" >
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownSelectNum" data-toggle="dropdown">
+                            人数(配合疫情防控，每人限购票一张)：<span class="dropdown" >
+                                <button class="btn btn-default dropdown-toggle" disabled="disabled" type="button" id="dropdownSelectNum" data-toggle="dropdown">
                                     <span id="current_num" >1</span>
                                     <span class="caret"></span>
                                 </button>
